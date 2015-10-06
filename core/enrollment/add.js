@@ -25,9 +25,10 @@ $(document).on(coreEvents.viewReady.type, function() {
   });
 
   $(document).on(viewEvents.addOutcome.type, function(e) {
-    var accountData = addOutcomeToData(e.name, e.value);
-    settings.saveAccount(accountData);
+    console.log("try add: " + e.name + ", " + e.value);
     if (validator.isOutcomeValid(e.name, e.value)) {
+      var accountData = addOutcomeToData(e.name, e.value);
+      settings.saveAccount(accountData);
       viewEvents.addValidOutcome.name = e.name;
       viewEvents.addValidOutcome.value = e.value;
       $(document).trigger(viewEvents.addValidOutcome);

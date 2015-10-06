@@ -114,14 +114,13 @@ function add(name, value, type) {
 }
 
 function addIncome(name, value) {
+  console.log("add income");
   var enrollment = $(getEnrollmentString(name, value));
   enrollment.appendTo(incomesId);
 };
 
 function addOutcome(name, value) {
-  viewEvents.addOutcome.name = name;
-  viewEvents.addOutcome.value = value;
-  $(document).trigger(viewEvents.addOutcome);
+  console.log("add outcome");
   var enrollment = $(getEnrollmentString(name, value));
   enrollment.appendTo(outcomesId);
 }
