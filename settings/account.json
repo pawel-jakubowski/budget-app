@@ -1,0 +1,24 @@
+{
+    "name": "Moje konto",
+    "currency": "zł",
+    "incomes": [
+        {
+            "name": "Ulotki",
+            "value": 800
+        },
+        {
+            "name": "Stypendium",
+            "value": 400
+        }
+    ],
+    "outcomes": [
+        {
+            "name": "Bilet MPK",
+            "value": 100
+        },
+        {
+            "name": "Wynajem",
+            "value": 1100
+        }
+    ]
+}

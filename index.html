@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <head>
+    <title>BudgetApp</title>
+    <!-- <link rel="stylesheet" type="text/css" href="mystyles.css" media="screen" /> -->
+    <script src="core/main.js"></script>
+  </head>
+  <body>
+    <h1>Konto: <span id="account-name" ></h1>
+
+    <h3>Dodaj wpis</h3>
+    <form id="addEnrollmentForm" >
+      <div><label class="title">Nazwa</label><input id="name" type="text"  ></div>
+      <div><label class="value">Wartość</label><input id="value" type="number" ></div>
+      <input type="radio" name="enrollment-type" value="income" checked>Przychód
+      <input type="radio" name="enrollment-type" value="outcome">Wydatek
+      <div><input class="submit" type="submit" value="Dodaj" ></div>
+    </form>
+
+    <h3>Przychody</h3>
+      <div id="incomes"></div>
+      <div>Suma: <span id="incomes-sum" ></div>
+    <h3>Wydatki</h3>
+      <div id="outcomes"></div>
+      <div>Suma: <span id="outcomes-sum" ></div>
+    <h3>Budżet</h3>
+      <div>Suma: <span id="general-sum" ></div>
+  </body>
+</html>
