@@ -7,6 +7,10 @@
             "value": 800
         },
         {
+            "name": "abc",
+            "value": 123
+        },
+        {
             "name": "Stypendium",
             "value": 400
         }

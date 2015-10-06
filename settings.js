@@ -3,8 +3,9 @@ var events = {
   settingsLoaded: jQuery.Event("settings-loaded")
 };
 var account = {};
+var settingsFile = __dirname+"/settings/account.json";
 
-$.getJSON('./settings/account.json').then(function(data) {
+$.getJSON(settingsFile).then(function(data) {
   console.log(data);
   account = data;
   $(document).trigger(events.settingsLoaded);
@@ -24,6 +25,6 @@ function getAccount() {
 
 function saveAccount(newAccount) {
   var strJson = JSON.stringify(newAccount, null, 4);
-  fs.writeFileSync("settings/account.json", strJson);
+  fs.writeFileSync(settingsFile, strJson);
   account = newAccount;
 }
