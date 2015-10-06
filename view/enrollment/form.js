@@ -1,6 +1,6 @@
 var accountView = {};
 var form = {};
-var viewEvents = require("./../events.js");
+var viewEvents = appRequire("view/events.js");
 var formId = "#addEnrollmentForm";
 var nameInputId = "#name";
 var valueInputId = "#value";

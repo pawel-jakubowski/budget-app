@@ -1,7 +1,12 @@
-require("./utils/jquery.js");
-var settings = require('./settings.js');
-var enrollments = require("./core/enrollment.js");
-var view = require("./view/main.js");
+// Allow to call local require function
+global.appRequire = function(name) {
+    return require(__dirname + '/' + name);
+}
+
+appRequire("utils/jquery.js");
+var settings = appRequire('settings.js');
+var enrollments = appRequire("core/enrollment.js");
+var view = appRequire("view/main.js");
 var coreEvents = settings.coreEvents;
 
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {

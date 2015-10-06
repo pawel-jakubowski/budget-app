@@ -1,4 +1,4 @@
-var settings = require("./../../settings.js");
+var settings = appRequire("settings.js");
 var fs = require("fs");
 var validator = require("./validate.js")
 var coreEvents = settings.coreEvents;

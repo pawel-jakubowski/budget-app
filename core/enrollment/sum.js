@@ -1,4 +1,4 @@
-var settings = require("./../../settings.js");
+var settings = appRequire("settings.js");
 var coreEvents = settings.coreEvents;
 var viewEvents = settings.viewEvents;
 var incomesSum = 0;
