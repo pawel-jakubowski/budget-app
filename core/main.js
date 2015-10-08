@@ -1,15 +1,17 @@
+global.appRootDir = __dirname;
 // Allow to call local require function
 global.appRequire = function(name) {
-    return require(__dirname + '/' + name);
+    return require(appRootDir + '/' + name);
 }
 
 appRequire("utils/jquery.js");
-var settings = appRequire('settings.js');
+var settings = appRequire("settings.js");
 var enrollments = appRequire("core/enrollment.js");
 var view = appRequire("view/main.js");
 var coreEvents = settings.coreEvents;
 
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
+  appRequire("core/app_update.js").updateApplication();
   var accountData = settings.getAccount();
   var accountView = view.getAccount();
 

@@ -1,4 +1,4 @@
-var settings = require("settings.js");
+var settings = appRequire("settings.js");
 
 module.exports = {
   isIncomeValid: isIncomeValid,
