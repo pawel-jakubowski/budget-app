@@ -38,14 +38,14 @@ function updateApplication() {
             });
           console.log("User choice: " + response);
           if (response)
-            $(document).trigger(coreEvents.appUpdateReady);
+            $(document).trigger(coreEvents.appUpdateStart);
         }
       });
     });
   });
 }
 
-$(document).on(coreEvents.appUpdateReady.type, function() {
+$(document).on(coreEvents.appUpdateStart.type, function() {
   var request = https.get(new treeOptions(user, repo), function(response) {
     var output = "";
     response.on("data", function(chunk){
