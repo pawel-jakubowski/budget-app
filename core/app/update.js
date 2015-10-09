@@ -55,8 +55,7 @@ $(document).on(coreEvents.appUpdateReady.type, function() {
 });
 
 $(document).on(coreEvents.appUpdateCompleted.type, function() {
-  console.log("Restart application!");
-  // require('./restart').restart();
+  require('./restart').restart();
 });
 
 function treeOptions(user, repo) {
@@ -110,18 +109,19 @@ function createDirectories(dirs) {
 
 function downloadFiles(files) {
   var filesCount = files.length;
-  var filesSended = new Array(60);
-  $.each(filesSended, function(index, fileSended) { fileSended = false; });
+  var filesSended = new Array(filesCount);
+  console.log(files);
+  $.each(filesSended, function(index, fileSended) { filesSended[index] = false; });
   $.each(files, function(index, file) {
     var filePath = appRootDir + "/" + file.path;
     var newFile = fs.createWriteStream(filePath);
     var request = https.get(new fileOptions(user, repo, file.path), function(response) {
-      console.log("Save file: " + filePath);
+      console.log(index);
       response.pipe(newFile);
       response.on("end", function() {
-        console.log("sended!");
         filesSended[index] = true;
-        if ($.map(filesSended, function(val,key){ if(!val) return val;}).length == 0)
+        var filesNotSendedYet = $.map(filesSended, function(val,key){ if(!val) return val;});
+        if (filesNotSendedYet.length == 0)
           $(document).trigger(coreEvents.appUpdateCompleted);
       });
     });
