@@ -19,22 +19,28 @@ module.exports = {
 
 function updateApplication() {
   $(document).on(coreEvents.appInfoReady.type, function(e) {
-    $.getJSON('https://raw.githubusercontent.com/' + user + '/' + repo + '/master/' + appInfoFile)
-      .then(function(data) {
-      if (e.info.version < data.version) {
-        var dialog = require('remote').require('dialog');
-        var response = dialog.showMessageBox({
-            type: "info",
-            buttons: ["Not now", "Update application"],
-            title: "Application update is available",
-            message: "There is a new version of application is available. Do you want to update?",
-            detail: "New version: " + data.version + "\n" +
-              "Current version: " + e.info.version
-          });
-        console.log("User choice: " + response);
-        if (response)
-          $(document).trigger(coreEvents.appUpdateReady);
-      }
+    var request = https.get(new fileOptions(user, repo, appInfoFile), function(response) {
+      var output = "";
+      response.on("data", function(chunk){
+        output += chunk.toString('utf8');
+      }).on("end", function(){
+        output = JSON.parse(output);
+        console.log("compare " + e.info.version + " with " + output.version);
+        if (e.info.version < output.version) {
+          var dialog = require('remote').require('dialog');
+          var response = dialog.showMessageBox({
+              type: "info",
+              buttons: ["Not now", "Update application"],
+              title: "Application update is available",
+              message: "There is a new version of application is available. Do you want to update?",
+              detail: "New version: " + output.version + "\n" +
+                "Current version: " + e.info.version
+            });
+          console.log("User choice: " + response);
+          if (response)
+            $(document).trigger(coreEvents.appUpdateReady);
+        }
+      });
     });
   });
 }
