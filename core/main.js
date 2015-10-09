@@ -11,7 +11,7 @@ var view = appRequire("view/main.js");
 var coreEvents = settings.coreEvents;
 
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
-  appRequire("core/app_update.js").updateApplication();
+  appRequire("core/app/update.js").updateApplication();
   var accountData = settings.getAccount();
   var accountView = view.getAccount();
 

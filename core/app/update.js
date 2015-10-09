@@ -1,15 +1,45 @@
+var coreEvents = appRequire('core/events.js');
 var https = require('https');
 var fs = require('fs');
 var path = require('path');
 var user = 'pawel-jakubowski';
 var repo = 'budget-app';
+var progress = 0;
+
+var appInfoFile = "package.json";
+$.getJSON(appRootDir + '/' + appInfoFile).then(function(data) {
+  console.log("BudgetApp version: " + data.version);
+  coreEvents.appInfoReady.info = data;
+  $(document).trigger(coreEvents.appInfoReady);
+});
 
 module.exports = {
   updateApplication: updateApplication
 };
 
 function updateApplication() {
-  console.log(new treeOptions(user, repo));
+  $(document).on(coreEvents.appInfoReady.type, function(e) {
+    $.getJSON('https://raw.githubusercontent.com/' + user + '/' + repo + '/master/' + appInfoFile)
+      .then(function(data) {
+      if (e.info.version < data.version) {
+        var dialog = require('remote').require('dialog');
+        var response = dialog.showMessageBox({
+            type: "info",
+            buttons: ["Not now", "Update application"],
+            title: "Application update is available",
+            message: "There is a new version of application is available. Do you want to update?",
+            detail: "New version: " + data.version + "\n" +
+              "Current version: " + e.info.version
+          });
+        console.log("User choice: " + response);
+        if (response)
+          $(document).trigger(coreEvents.appUpdateReady);
+      }
+    });
+  });
+}
+
+$(document).on(coreEvents.appUpdateReady.type, function() {
   var request = https.get(new treeOptions(user, repo), function(response) {
     var output = "";
     response.on("data", function(chunk){
@@ -22,7 +52,12 @@ function updateApplication() {
       downloadFiles(repoFiles);
     });
   });
-}
+});
+
+$(document).on(coreEvents.appUpdateCompleted.type, function() {
+  console.log("Restart application!");
+  // require('./restart').restart();
+});
 
 function treeOptions(user, repo) {
   this.host = 'api.github.com';
@@ -69,17 +104,26 @@ function createDirectories(dirs) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
       }
     }
-    mkdirpSync("/update/" + file.path);
+    mkdirpSync("resources/app/" + file.path);
   });
 }
 
 function downloadFiles(files) {
-  $.each(files, function(key, file) {
-    var filePath = appRootDir + "/update/" + file.path;
+  var filesCount = files.length;
+  var filesSended = new Array(60);
+  $.each(filesSended, function(index, fileSended) { fileSended = false; });
+  $.each(files, function(index, file) {
+    var filePath = appRootDir + "/" + file.path;
     var newFile = fs.createWriteStream(filePath);
-    var request = https.get(new fileOptions(user, repo), function(response) {
+    var request = https.get(new fileOptions(user, repo, file.path), function(response) {
       console.log("Save file: " + filePath);
       response.pipe(newFile);
+      response.on("end", function() {
+        console.log("sended!");
+        filesSended[index] = true;
+        if ($.map(filesSended, function(val,key){ if(!val) return val;}).length == 0)
+          $(document).trigger(coreEvents.appUpdateCompleted);
+      });
     });
   });
 }
