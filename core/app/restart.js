@@ -3,9 +3,8 @@ module.exports = {
 }
 
 function restart() {
-  var app = require("remote").require('app');
-  var exec = require('child_process').exec;
-  console.log(process.execPath + " " + process.execArgv);
-  exec(process.execPath + " " + process.execArgv);
-  app.quit();
+  var BrowserWindow = require("remote").require('browser-window');
+  $.each(BrowserWindow.getAllWindows(), function(index, window) {
+    window.reload();
+  });
 }

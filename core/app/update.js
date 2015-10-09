@@ -109,7 +109,7 @@ function createDirectories(dirs) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
       }
     }
-    mkdirpSync("resources/app/" + file.path);
+    mkdirpSync("update/" + file.path);
   });
 }
 
@@ -119,7 +119,7 @@ function downloadFiles(files) {
   console.log(files);
   $.each(filesSended, function(index, fileSended) { filesSended[index] = false; });
   $.each(files, function(index, file) {
-    var filePath = appRootDir + "/" + file.path;
+    var filePath = appRootDir + "/update/" + file.path;
     var newFile = fs.createWriteStream(filePath);
     var request = https.get(new fileOptions(user, repo, file.path), function(response) {
       console.log(index);
