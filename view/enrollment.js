@@ -97,8 +97,8 @@ function outcomesSortApply(event, ui) {
 function getEnrollmentString(name, value) {
   var enrollment =
     '<div class="' + enrollmentClass + ' row">' +
-      '<div class="' + nameClass + ' col-xs-10">' + name + '</div>' +
-      '<div class="col-xs-1">' + getValueWithCurrency(value) + '</div>' +
+      '<div class="' + nameClass + ' col-xs-9">' + name + '</div>' +
+      '<div class="col-xs-2">' + getValueWithCurrency(value) + '</div>' +
       '<div class="col-xs-1">' + tools.getString() + '</div>' +
     '</div>';
   return enrollment;

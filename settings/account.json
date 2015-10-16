@@ -3,16 +3,16 @@
     "currency": "zł",
     "incomes": [
         {
-            "name": "Ulotki",
-            "value": 800
+            "name": "Stypendium",
+            "value": 400
         },
         {
             "name": "abc",
             "value": 123
         },
         {
-            "name": "Stypendium",
-            "value": 400
+            "name": "Ulotki",
+            "value": 800
         }
     ],
     "outcomes": [

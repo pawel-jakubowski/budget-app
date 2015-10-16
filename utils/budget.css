@@ -1,4 +1,5 @@
 body {
+  background-image: url("img/groovepaper.png");
   padding: 20px;
 }
 
@@ -17,19 +18,24 @@ body {
   cursor: -webkit-grab;
 }
 
+#incomes > div.row,
+#outcomes > div.row {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
 #incomes > div.row:nth-of-type(2n+1),
 #outcomes > div.row:nth-of-type(2n+1) {
-  background-color: #F9F9F9;
+  background-color: rgba(249, 249, 249, 0.6);
 }
 
 #incomes > div.row:hover,
 #outcomes > div.row:hover {
-  background-color: rgba(86, 61, 124, 0.15);
+  background-color: rgba(220, 220, 220, 0.6);
 }
 
 #incomes > div.row:active, #incomes > div.row.ui-sortable-helper,
 #outcomes > div.row:active, #outcomes > div.row.ui-sortable-helper {
-  cursor: move;
+  cursor: -webkit-grabbing;
 }
 
 .radio-group {
