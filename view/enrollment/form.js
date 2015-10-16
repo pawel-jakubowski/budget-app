@@ -2,6 +2,7 @@ var accountView = {};
 var form = {};
 var viewEvents = appRequire("view/events.js");
 var formId = "#addEnrollmentForm";
+var formCurrencyId = "#form-currency";
 var nameInputId = "#name";
 var valueInputId = "#value";
 var typeId = "input:radio[name=enrollment-type]:checked";
@@ -34,12 +35,17 @@ function raiseAddOutcomeEvent(name, value) {
 }
 
 module.exports = {
-  setAccountView: setAccountView
+  setAccountView: setAccountView,
+  setCurrency: setCurrency
 }
 
 function setAccountView(view) {
   accountView = view;
 }
+
+function setCurrency(currency) {
+  $(formCurrencyId).text(currency);
+};
 
 function getName() {
   return form.find(nameInputId).val()

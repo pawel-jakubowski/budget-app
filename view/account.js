@@ -15,6 +15,7 @@ function init(newSettings) {
   var data = settings.getAccount();
 
   setName(data.name);
+  enrollmentForm.setCurrency(data.currency);
   enrollments.init(data);
   enrollmentForm.setAccountView(module.exports);
 };

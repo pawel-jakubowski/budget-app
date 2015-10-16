@@ -1,0 +1,45 @@
+body {
+  max-width: 800px;
+  padding: 20px;
+}
+
+#incomes, #outcomes {
+  margin-left: 0px;
+}
+
+#incomes > div.row,
+#outcomes > div.row {
+  padding: 5px 0px;
+  border-top: 1px solid #DDD;
+  cursor: -webkit-grab;
+}
+
+#incomes > div.row:nth-of-type(2n+1),
+#outcomes > div.row:nth-of-type(2n+1) {
+  background-color: #F9F9F9;
+}
+
+#incomes > div.row:hover,
+#outcomes > div.row:hover {
+  background-color: rgba(86, 61, 124, 0.15);
+}
+
+#incomes > div.row:active, #incomes > div.row.ui-sortable-helper,
+#outcomes > div.row:active, #outcomes > div.row.ui-sortable-helper {
+  cursor: move;
+}
+
+.radio-group {
+  display: inline-block;
+  padding: 0px 10px;
+}
+
+.total {
+  padding: 5px 0px;
+  border-top: 2px solid #DDD;
+  font-weight: bold;
+}
+
+.total.row {
+  margin: 0px;
+}

@@ -3,28 +3,54 @@
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <head>
     <title>BudgetApp</title>
-    <!-- <link rel="stylesheet" type="text/css" href="mystyles.css" media="screen" /> -->
+    <link rel="stylesheet" href="utils/budget.css">
+    <link rel="stylesheet" href="utils/bootstrap/css/bootstrap.min.css">
     <script src="core/main.js"></script>
   </head>
   <body>
-    <h1>Konto: <span id="account-name" ></h1>
+    <h1><small>Konto:</small> <span id="account-name" ></h1>
 
     <h3>Dodaj wpis</h3>
-    <form id="addEnrollmentForm" >
-      <div><label class="title">Nazwa</label><input id="name" type="text"  ></div>
-      <div><label class="value">Wartość</label><input id="value" type="number" ></div>
-      <input type="radio" name="enrollment-type" value="income" checked>Przychód
-      <input type="radio" name="enrollment-type" value="outcome">Wydatek
-      <div><input class="submit" type="submit" value="Dodaj" ></div>
+    <form id="addEnrollmentForm" class="form-inline" >
+      <div class="input-group" >
+        <input id="name" class="form-control" type="text" placeholder="Nazwa" >
+      </div>
+      <div class="input-group" >
+        <input id="value" class="form-control" type="number" placeholder="Wartość" >
+        <div id="form-currency" class="input-group-addon"></div>
+      </div>
+      <div class="radio-group" >
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="enrollment-type" value="income" checked>
+            Przychód
+          </label>
+        </div>
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="enrollment-type" value="outcome">
+            Wydatek
+          </label>
+        </div>
+      </div>
+      <input class="submit btn btn-primary" type="submit" value="Dodaj" >
     </form>
 
     <h3>Przychody</h3>
-      <div id="incomes"></div>
-      <div>Suma: <span id="incomes-sum" ></div>
+      <div id="incomes" class="container-fluid"></div>
+      <div class="total row">
+        <div class="pull-left">Suma:</div>
+        <div id="incomes-sum" class="pull-right"></div>
+      </div>
     <h3>Wydatki</h3>
-      <div id="outcomes"></div>
-      <div>Suma: <span id="outcomes-sum" ></div>
-    <h3>Budżet</h3>
-      <div>Suma: <span id="general-sum" ></div>
+      <div id="outcomes" class="container-fluid"></div>
+    <div class="total row">
+      <div class="pull-left">Suma:</div>
+      <div id="outcomes-sum" class="pull-right"></div>
+    </div>
+    <div class="grand-total h3">
+      <div class="pull-left">Budżet:</div>
+      <div id="general-sum" class="pull-right"></div>
+    </div>
   </body>
 </html>

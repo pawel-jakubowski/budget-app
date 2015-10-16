@@ -110,7 +110,7 @@ function createDirectories(dirs) {
       }
     }
     if (process.platform != 'darwin')
-      mkdirpSync(appRootDir + "/resources/app/" + file.path);
+      mkdirpSync("resources/app/" + file.path);
     else
       mkdirpSync(appRootDir + "/Contents/Resources/app/" + file.path);
   });

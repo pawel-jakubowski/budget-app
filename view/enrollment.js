@@ -36,8 +36,9 @@ $(document).ready(function() {
 });
 
 function deleteEnrollment(deleteObject) {
-  var name = deleteObject.siblings("." + nameClass).text();
-  deleteObject.parent("." + enrollmentClass).remove();
+  var enrollment = deleteObject.parents("." + enrollmentClass);
+  var name = enrollment.children("." + nameClass).text();
+  enrollment.remove();
   return name;
 }
 
@@ -95,9 +96,10 @@ function outcomesSortApply(event, ui) {
 
 function getEnrollmentString(name, value) {
   var enrollment =
-    '<div class="' + enrollmentClass + '">' +
-      '<span class="' + nameClass + '">' + name + '</span>' +
-      ' ' + getValueWithCurrency(value) + tools.getString() +
+    '<div class="' + enrollmentClass + ' row">' +
+      '<div class="' + nameClass + ' col-xs-10">' + name + '</div>' +
+      '<div class="col-xs-1">' + getValueWithCurrency(value) + '</div>' +
+      '<div class="col-xs-1">' + tools.getString() + '</div>' +
     '</div>';
   return enrollment;
 }
