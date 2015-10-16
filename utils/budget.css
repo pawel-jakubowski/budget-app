@@ -55,11 +55,20 @@ body {
   padding: 10px;
 }
 
-#notification-tray > .alert {
+#notification-tray > div {
   width: 100%;
   margin: 0px;
 }
 
 #notification-tray > .alert-success > .pull-right {
   margin-top: -7px;
+}
+
+#notification-tray > .progress {
+  height: 30px;
+}
+
+#notification-tray > .progress > .progress-bar {
+  padding: 5px 0px;
+  font-size: 12pt;
 }

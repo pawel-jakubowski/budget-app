@@ -1,4 +1,5 @@
 var coreEvents = appRequire('core/events.js');
+var viewEvents = appRequire('view/events.js');
 var https = require('https');
 var fs = require('fs');
 var path = require('path');
@@ -105,6 +106,7 @@ function createDirectories(dirs) {
 }
 
 function downloadFiles(files) {
+  console.log("download files");
   var filesCount = files.length;
   var filesSended = new Array(filesCount);
   console.log(files);
@@ -113,11 +115,13 @@ function downloadFiles(files) {
     var filePath = appRootDir + "/" + file.path;
     var newFile = fs.createWriteStream(filePath);
     var request = https.get(new fileOptions(user, repo, file.path), function(response) {
-      console.log(index);
       response.pipe(newFile);
       response.on("end", function() {
         filesSended[index] = true;
         var filesNotSendedYet = $.map(filesSended, function(val,key){ if(!val) return val;});
+        var completedInPercent = 100 - parseInt((filesNotSendedYet.length * 100) / filesCount);
+        viewEvents.appUpdateProgress.value = completedInPercent;
+        $(document).trigger(viewEvents.appUpdateProgress);
         if (filesNotSendedYet.length == 0)
           $(document).trigger(coreEvents.appUpdateCompleted);
       });

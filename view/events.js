@@ -8,5 +8,6 @@ module.exports = {
   moveIncomes: jQuery.Event("move-incomes"),
   moveOutcomes: jQuery.Event("move-outcomes"),
   drawSums: jQuery.Event("draw-sums"),
-  invalidEnrollment: jQuery.Event("invalid-enrollment")
+  invalidEnrollment: jQuery.Event("invalid-enrollment"),
+  appUpdateProgress: jQuery.Event("app-update-progress")
 }
