@@ -3,6 +3,7 @@ module.exports = {
   updateIncomesSum: jQuery.Event("update-incomes-sum"),
   updateOutcomesSum: jQuery.Event("update-outcomes-sum"),
   appInfoReady:  jQuery.Event("app-info-ready"),
+  appUpdateAvailable: jQuery.Event("app-update-available"),
   appUpdateStart: jQuery.Event("app-update-start"),
   appUpdateCompleted: jQuery.Event("app-update-complited")
 }

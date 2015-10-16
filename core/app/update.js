@@ -27,18 +27,9 @@ function updateApplication() {
         output = JSON.parse(output);
         console.log("compare " + e.info.version + " with " + output.version);
         if (e.info.version < output.version) {
-          var dialog = require('remote').require('dialog');
-          var response = dialog.showMessageBox({
-              type: "info",
-              buttons: ["Not now", "Update application"],
-              title: "Application update is available",
-              message: "There is a new version of application is available. Do you want to update?",
-              detail: "New version: " + output.version + "\n" +
-                "Current version: " + e.info.version
-            });
-          console.log("User choice: " + response);
-          if (response)
-            $(document).trigger(coreEvents.appUpdateStart);
+          coreEvents.appUpdateAvailable.newVersion = output.version;
+          coreEvents.appUpdateAvailable.currentVersion = e.info.version;
+          $(document).trigger(coreEvents.appUpdateAvailable);
         }
       });
     });
