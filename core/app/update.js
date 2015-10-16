@@ -37,6 +37,7 @@ function updateApplication() {
 }
 
 $(document).on(coreEvents.appUpdateStart.type, function() {
+  console.log("Start updating...");
   var request = https.get(new treeOptions(user, repo), function(response) {
     var output = "";
     response.on("data", function(chunk){
@@ -49,10 +50,6 @@ $(document).on(coreEvents.appUpdateStart.type, function() {
       downloadFiles(repoFiles);
     });
   });
-});
-
-$(document).on(coreEvents.appUpdateCompleted.type, function() {
-  require('./restart').restart();
 });
 
 function treeOptions(user, repo) {

@@ -1,6 +1,9 @@
 body {
-  max-width: 800px;
   padding: 20px;
+}
+
+#account {
+  max-width: 800px;
 }
 
 #incomes, #outcomes {
@@ -42,4 +45,21 @@ body {
 
 .total.row {
   margin: 0px;
+}
+
+#notification-tray {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 10px;
+}
+
+#notification-tray > .alert {
+  width: 100%;
+  margin: 0px;
+}
+
+#notification-tray > .alert-success > .pull-right {
+  margin-top: -7px;
 }
