@@ -1,5 +1,7 @@
 {
-  "name"    : "BudgetApp",
-  "version" : "0.2.0",
-  "main"    : "main.js"
+  "name"          : "BudgetApp",
+  "version"       : "0.2.0",
+  "author"        : "Paweł Jakubowski",
+  "main"          : "main.js",
+  "contributions" : "jQuery, bootstrap, glyphicons.com"
 }

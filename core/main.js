@@ -5,6 +5,7 @@ global.appRequire = function(name) {
 }
 
 appRequire("utils/jquery.js");
+appRequire("utils/menu.js");
 var settings = appRequire("settings.js");
 var enrollments = appRequire("core/enrollment.js");
 var view = appRequire("view/main.js");

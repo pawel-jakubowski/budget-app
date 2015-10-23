@@ -4,6 +4,7 @@ var incomesId = "#incomes";
 var outcomesId = "#outcomes";
 var enrollmentClass = "enrollment";
 var deleterClass = "." + enrollmentClass + " " + tools.deleterClass;
+var pinClass = "." + enrollmentClass + " " + tools.pinClass;
 var nameClass = "name";
 var currency = "$";
 
@@ -18,6 +19,20 @@ $(document).ready(function() {
     console.log("Outcome delete");
     viewEvents.deleteOutcome.name = deleteEnrollment($(this));
     $(document).trigger(viewEvents.deleteOutcome);
+  });
+
+  $(incomesId).on("change", pinClass, function(){
+    console.log("Income pin");
+    var enrollment = deduceEnrollmentFromChild($(this));
+    viewEvents.pinIncome.name = getEnrollmentName(enrollment);
+    $(document).trigger(viewEvents.pinIncome);
+  });
+
+  $(outcomesId).on("change", pinClass, function(){
+    console.log("Outcome pin");
+    var enrollment = deduceEnrollmentFromChild($(this));
+    viewEvents.pinOutcome.name = getEnrollmentName(enrollment);
+    $(document).trigger(viewEvents.pinOutcome);
   });
 
   $(document).on(viewEvents.drawSums.type, function(e) {
@@ -36,10 +51,18 @@ $(document).ready(function() {
 });
 
 function deleteEnrollment(deleteObject) {
-  var enrollment = deleteObject.parents("." + enrollmentClass);
-  var name = enrollment.children("." + nameClass).text();
+  var enrollment = deduceEnrollmentFromChild(deleteObject);
+  var name = getEnrollmentName(enrollment);
   enrollment.remove();
   return name;
+}
+
+function deduceEnrollmentFromChild(object) {
+  return object.parents("." + enrollmentClass);
+}
+
+function getEnrollmentName(enrollment) {
+  return enrollment.children("." + nameClass).text();
 }
 
 module.exports = {
@@ -97,9 +120,10 @@ function outcomesSortApply(event, ui) {
 function getEnrollmentString(name, value) {
   var enrollment =
     '<div class="' + enrollmentClass + ' row">' +
-      '<div class="' + nameClass + ' col-xs-9">' + name + '</div>' +
+      '<div class="col-xs-1 btn-group" data-toggle="buttons">' + tools.pinButton + '</div>' +
+      '<div class="' + nameClass + ' col-xs-8">' + name + '</div>' +
       '<div class="col-xs-2">' + getValueWithCurrency(value) + '</div>' +
-      '<div class="col-xs-1">' + tools.getString() + '</div>' +
+      '<div class="col-xs-1">' + tools.deleteButton + '</div>' +
     '</div>';
   return enrollment;
 }

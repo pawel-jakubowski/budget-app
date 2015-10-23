@@ -1,15 +1,17 @@
+var buttonClass = 'btn btn-xs';
 var deleterClass = "delete";
-var deleteButton = '<button class="' + deleterClass + ' btn btn-xs btn-danger pull-right"' +
-  ' type="button">X</button>';
-// var moveUpButton = '<button class="up" type="button">Up</button>';
-// var moveDownButton = '<button class="down" type="button">Down</button>';
-// var dragArrow = '<span class="ui-icon ui-icon-arrowthick-2-n-s">';
+var pinClass = "checkbox-pin-btn";
+var deleteButton =
+  '<button class="' + deleterClass + ' ' + buttonClass + ' btn-danger pull-right" type="button">X</button>';
+var pinButton =
+  '<label class="' + pinClass + ' ' + buttonClass + ' btn-default">' +
+    '<input type="checkbox" autocomplete="off">' +
+    '<img class="icon" src="utils/img/icons/glyphicons-336-pushpin.png" />' +
+  '</label>';
 
 module.exports = {
   deleterClass: "." + deleterClass,
-  getString: getString
+  pinClass: "." + pinClass,
+  deleteButton: deleteButton,
+  pinButton: pinButton
 }
-
-function getString() {
-  return deleteButton;
-};

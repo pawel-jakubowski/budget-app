@@ -3,6 +3,8 @@ module.exports = {
   addOutcome: jQuery.Event("add-outcome"),
   addValidIncome: jQuery.Event("add-valid-income"),
   addValidOutcome: jQuery.Event("add-valid-outcome"),
+  pinIncome: jQuery.Event("pin-income"),
+  pinOutcome: jQuery.Event("pin-outcome"),
   deleteIncome: jQuery.Event("delete-income"),
   deleteOutcome: jQuery.Event("delete-outcome"),
   moveIncomes: jQuery.Event("move-incomes"),

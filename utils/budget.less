@@ -1,0 +1,103 @@
+body {
+  background-image: url("img/groovepaper.png");
+  padding: 20px;
+}
+
+#account {
+  max-width: 800px;
+}
+
+#outcomes {
+  #incomes
+}
+
+#incomes {
+  margin-left: 0px;
+
+  > div.row {
+    padding: 5px;
+    border-top: 1px solid #DDD;
+    cursor: -webkit-grab;
+    background-color: rgba(255, 255, 255, 0.6);
+
+    &:nth-of-type(2n+1) {
+      background-color: rgba(249, 249, 249, 0.6);
+    }
+
+    &:hover {
+      background-color: rgba(220, 220, 220, 0.6);
+    }
+
+    &.row.ui-sortable-helper {
+      cursor: -webkit-grabbing;
+    }
+
+    .checkbox-pin-btn {
+      @checkbox-size: 20px;
+      min-width: @checkbox-size + 4px;
+      min-height: @checkbox-size;
+
+      .icon {
+        display: none;
+        @icon-size: 12px;
+        width: @icon-size;
+        height: @icon-size;
+      }
+
+      &.active {
+        .icon {
+          display: inline;
+        }
+      }
+
+      &:hover {
+        .active
+      }
+    }
+  }
+}
+
+.radio-group {
+  display: inline-block;
+  padding: 0px 10px;
+}
+
+.total {
+  padding: 5px 0px;
+  border-top: 2px solid #DDD;
+  font-weight: bold;
+
+  &.row {
+    margin: 0px;
+  }
+}
+
+.grand-total {
+  height: 30px;
+}
+
+#notification-tray {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 10px;
+
+  > div {
+    width: 100%;
+    margin: 0px;
+  }
+
+  > .alert-success > .pull-right {
+    margin-top: -7px;
+  }
+
+  > .progress {
+    height: 30px;
+
+    > .progress-bar {
+      padding: 5px 0px;
+      font-size: 12pt;
+    }
+  }
+}
