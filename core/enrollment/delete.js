@@ -16,7 +16,7 @@ $(document).on(coreEvents.viewReady.type, function(){
 
 function deleteEnrollmentByName(name, container) {
   container = $.grep(container, function(e){ return e.name != name; });
-  return container
+  return container;
 }
 
 function deleteIncomeFromAccount(name) {

@@ -4,17 +4,20 @@
     "incomes": [
         {
             "name": "Ulotki",
-            "value": 800
+            "value": 800,
+            "pinned": true
         },
         {
             "name": "Stypendium",
-            "value": 400
+            "value": 400,
+            "pinned": false
         }
     ],
     "outcomes": [
         {
             "name": "Wynajem",
-            "value": 1100
+            "value": 1100,
+            "pinned": true
         },
         {
             "name": "Bilet MPK",

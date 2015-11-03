@@ -4,31 +4,31 @@ var viewEvents = settings.viewEvents;
 
 $(document).on(coreEvents.viewReady.type, function(){
   $(document).on(viewEvents.pinIncome.type, function(e){
-    changePinIncomeState(e.name);
-    $(document).trigger(coreEvents.updateIncomesSum);
+    changePinIncomeState(e.name, e.pinned);
   });
 
-  $(document).on(viewEvents.deleteOutcome.type, function(e){
-    changePinOutcomeState(e.name);
-    $(document).trigger(coreEvents.updateOutcomesSum);
+  $(document).on(viewEvents.pinOutcome.type, function(e){
+    changePinOutcomeState(e.name, e.pinned);
   });
 });
 
-function getEnrollmentByName(name, container) {
-  container = $.grep(container, function(e){ return e.name != name; });
-  return container;
+function changeEnrollmentByName(name, pinned, container) {
+  for (var i = 0; i < container.length; i++) {
+    if (container[i].name === name)
+      container[i].pinned = pinned;
+  }
 }
 
-function changePinIncomeState(name) {
+function changePinIncomeState(name, pinned) {
   var accountData = settings.getAccount();
-  console.log("Delete from settings income: " + name);
-  accountData.incomes = deleteEnrollmentByName(name, accountData.incomes);
+  console.log((pinned ? "Pin" : "Unpin") + " settings income: " + name);
+  changeEnrollmentByName(name, pinned, accountData.incomes);
   settings.saveAccount(accountData);
 }
 
-function changePinOutcomeState(name) {
+function changePinOutcomeState(name, pinned) {
   var accountData = settings.getAccount();
-  console.log("Delete from settings outcome: " + name);
-  accountData.outcomes = deleteEnrollmentByName(name, accountData.outcomes);
+  console.log((pinned ? "Pin" : "Unpin") + " settings outcome: " + name);
+  changeEnrollmentByName(name, pinned, accountData.outcomes);
   settings.saveAccount(accountData);
 }
