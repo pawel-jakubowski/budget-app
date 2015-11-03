@@ -7,7 +7,8 @@
     {
       "name"      : "budget-app",
       "author"    : "pawel-jakubowski",
-      "branch"    : "master"
+      "branch"    : "master",
+      "sha"       : "HEAD"
     },
   "contributions" : "jQuery, bootstrap, glyphicons.com"
 }
