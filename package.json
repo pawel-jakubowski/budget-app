@@ -3,5 +3,11 @@
   "version"       : "0.2.1",
   "author"        : "Paweł Jakubowski",
   "main"          : "main.js",
+  "repository"    :
+    {
+      "name"      : "budget-app",
+      "author"    : "pawel-jakubowski",
+      "branch"    : "master"
+    },
   "contributions" : "jQuery, bootstrap, glyphicons.com"
 }
