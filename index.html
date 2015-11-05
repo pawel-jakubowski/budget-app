@@ -10,33 +10,56 @@
     <script src="utils/bootstrap/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <h1><small>Konto:</small> <span id="account-name" ></h1>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand">BudgetApp</span>
+        </div>
 
-    <h3>Dodaj wpis</h3>
-    <form id="addEnrollmentForm" class="form-inline" >
-      <div class="input-group" >
-        <input id="name" class="form-control" type="text" placeholder="Nazwa" >
-      </div>
-      <div class="input-group" >
-        <input id="value" class="form-control" type="number" placeholder="Wartość" >
-        <div id="form-currency" class="input-group-addon"></div>
-      </div>
-      <div class="radio-group" >
-        <div class="radio-inline">
-          <label>
-            <input type="radio" name="enrollment-type" value="income" checked>
-            Przychód
-          </label>
-        </div>
-        <div class="radio-inline">
-          <label>
-            <input type="radio" name="enrollment-type" value="outcome">
-            Wydatek
-          </label>
-        </div>
-      </div>
-      <input class="submit btn btn-primary" type="submit" value="Dodaj" >
-    </form>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="active"><a id="addEntityLink" href="#">Dodaj wpis</a></li>
+          </ul>
+
+          <form id="addEnrollmentForm" class="navbar-form navbar-left" role="add-entity">
+            <div class="input-group">
+              <input id="name" class="form-control" type="text" placeholder="Nazwa" >
+            </div>
+            <div class="input-group">
+              <input id="value" class="form-control" type="number" placeholder="Wartość" >
+              <div id="form-currency" class="input-group-addon"></div>
+            </div>
+            <div class="radio-group">
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="enrollment-type" value="income" checked>
+                  Przychód
+                </label>
+              </div>
+              <div class="radio-inline">
+                <label>
+                  <input type="radio" name="enrollment-type" value="outcome">
+                  Wydatek
+                </label>
+              </div>
+            </div>
+            <input class="submit btn btn-primary" type="submit" value="Dodaj" >
+          </form>
+
+          <p class="navbar-text navbar-right">
+            Konto: <span id="account-name" />
+          </p>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <div id="account">
       <h3>Przychody</h3>
