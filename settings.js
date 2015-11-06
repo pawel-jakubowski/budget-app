@@ -11,6 +11,12 @@ $.getJSON(settingsFile).then(function(data) {
   account = data;
   account.incomesIsOldFormat = isOldFormat(account.incomes);
   account.outcomesIsOldFormat = isOldFormat(account.outcomes);
+
+  if(account.incomesIsOldFormat || account.outcomesIsOldFormat) {
+    var enrollments = getCurrentEnrollments();
+    saveCurrentEnrollments(enrollments);
+  }
+
   $(document).trigger(events.settingsLoaded);
 });
 
