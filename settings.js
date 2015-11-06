@@ -9,8 +9,19 @@ var settingsFile = __dirname+"/settings/account.json";
 $.getJSON(settingsFile).then(function(data) {
   console.log(data);
   account = data;
+  account.incomesIsOldFormat = isOldFormat(account.incomes);
+  account.outcomesIsOldFormat = isOldFormat(account.outcomes);
   $(document).trigger(events.settingsLoaded);
 });
+
+function isOldFormat(enrollmentContainer) {
+  if(enrollmentContainer.length > 0 &&
+    !enrollmentContainer[0].hasOwnProperty("date")) {
+    console.log("Old data format detected!");
+    return true;
+  }
+  return false;
+}
 
 module.exports = {
   settingsEvents: events,
@@ -32,9 +43,7 @@ function getCurrentEnrollments() {
   enrollments.incomes = [];
   enrollments.outcomes = [];
 
-  console.log("Return enrollments:");
-
-  if(isOldFormat(account.incomes))
+  if(account.incomesIsOldFormat)
     enrollments.incomes = account.incomes;
   else {
     $.map(account.incomes, function(incomesGroup, index) {
@@ -43,7 +52,7 @@ function getCurrentEnrollments() {
     });
   }
 
-  if(isOldFormat(account.outcomes))
+  if(account.outcomesIsOldFormat)
     enrollments.outcomes = account.outcomes;
   else {
     $.map(account.outcomes, function(outcomesGroup, index) {
@@ -55,16 +64,7 @@ function getCurrentEnrollments() {
   return enrollments;
 };
 
-function isOldFormat(enrollmentContainer) {
-  if(enrollmentContainer.lenght > 0 && !enrollmentContainer[0].hasOwnProperty("date")) {
-    console.log("Old data format detected!");
-    return true;
-  }
-  return false;
-}
-
 function setCurrentDate(date) {
-  console.log("new date: " + date);
   currentDate = date;
 }
 
@@ -72,14 +72,14 @@ function saveCurrentEnrollments(enrollments) {
   currentDate = currentDate;
 
   var currentIncome = 0;
-  if (!isOldFormat(account.incomes))
+  if (!account.incomesIsOldFormat)
     currentIncome = findCurrentEnrollmentIndex(account.incomes);
   account.incomes[currentIncome] = {};
   account.incomes[currentIncome].date = currentDate;
   account.incomes[currentIncome].enrollments = enrollments.incomes;
 
   var currentOutcome = 0;
-  if (!isOldFormat(account.outcomes))
+  if (!account.outcomesIsOldFormat)
     currentOutcome = findCurrentEnrollmentIndex(account.incomes);
   account.outcomes[currentOutcome] = {};
   account.outcomes[currentOutcome].date = currentDate;
