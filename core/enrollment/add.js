@@ -13,10 +13,11 @@ $(document).on(coreEvents.viewReady.type, function() {
   $(document).on(viewEvents.addIncome.type, function(e) {
     console.log("try add: " + e.name + ", " + e.value);
     if (validator.isIncomeValid(e.name, e.value)) {
-      var accountData = addIncomeToData(e.name, e.value);
-      settings.saveAccount(accountData);
-      viewEvents.addValidIncome.name = e.name;
-      viewEvents.addValidIncome.value = e.value;
+      var enrollments = addIncomeToData(e.name, e.value);
+      settings.saveCurrentEnrollments(enrollments);
+      viewEvents.addValidIncome.income = {};
+      viewEvents.addValidIncome.income.name = e.name;
+      viewEvents.addValidIncome.income.value = e.value;
       $(document).trigger(viewEvents.addValidIncome);
       $(document).trigger(coreEvents.updateIncomesSum);
     } else {
@@ -27,10 +28,11 @@ $(document).on(coreEvents.viewReady.type, function() {
   $(document).on(viewEvents.addOutcome.type, function(e) {
     console.log("try add: " + e.name + ", " + e.value);
     if (validator.isOutcomeValid(e.name, e.value)) {
-      var accountData = addOutcomeToData(e.name, e.value);
-      settings.saveAccount(accountData);
-      viewEvents.addValidOutcome.name = e.name;
-      viewEvents.addValidOutcome.value = e.value;
+      var enrollments = addOutcomeToData(e.name, e.value);
+      settings.saveCurrentEnrollments(enrollments);
+      viewEvents.addValidOutcome.outcome = {};
+      viewEvents.addValidOutcome.outcome.name = e.name;
+      viewEvents.addValidOutcome.outcome.value = e.value;
       $(document).trigger(viewEvents.addValidOutcome);
       $(document).trigger(coreEvents.updateOutcomesSum);
     } else {
@@ -41,15 +43,15 @@ $(document).on(coreEvents.viewReady.type, function() {
 
 
 function addIncomeToData(name, value) {
-  var accountData = settings.getAccount();
-  addEnrollmentToContainer(name, value, accountData.incomes);
-  return accountData;
+  var enrollments = settings.getCurrentEnrollments();
+  addEnrollmentToContainer(name, value, enrollments.incomes);
+  return enrollments;
 }
 
 function addOutcomeToData(name, value) {
-  var accountData = settings.getAccount();
-  addEnrollmentToContainer(name, value, accountData.outcomes);
-  return accountData;
+  var enrollments = settings.getCurrentEnrollments();
+  addEnrollmentToContainer(name, value, enrollments.outcomes);
+  return enrollments;
 }
 
 function addEnrollmentToContainer(name, value, container) {

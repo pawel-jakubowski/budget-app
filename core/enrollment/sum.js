@@ -19,13 +19,14 @@ $(document).on(coreEvents.viewReady.type, function() {
 });
 
 function updateIncomesSum() {
-  var account = settings.getAccount();
-  incomesSum = sumContainer(account.incomes);
+  var enrollments = settings.getCurrentEnrollments();
+  console.log(enrollments);
+  incomesSum = sumContainer(enrollments.incomes);
 }
 
 function updateOutcomesSum() {
-  var account = settings.getAccount();
-  outcomesSum = sumContainer(account.outcomes);
+  var enrollments = settings.getCurrentEnrollments();
+  outcomesSum = sumContainer(enrollments.outcomes);
 }
 
 function sumContainer(container) {

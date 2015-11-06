@@ -24,3 +24,11 @@ function deleteEnrollment(deleteObject) {
   enrollment.remove();
   return name;
 }
+
+function deduceEnrollmentFromChild(object) {
+  return object.parents("." + tools.enrollmentClass);
+}
+
+function getEnrollmentName(enrollment) {
+  return enrollment.children("." + tools.nameClass).text();
+}

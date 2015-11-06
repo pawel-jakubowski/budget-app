@@ -8,11 +8,11 @@ var currency = "$";
 
 $(document).ready(function() {
   $(document).on(viewEvents.addValidIncome.type, function(e) {
-    printIncome(e.name, e.value);
+    printIncome(e.income);
   });
 
   $(document).on(viewEvents.addValidOutcome.type, function(e) {
-    printOutcome(e.name, e.value);
+    printOutcome(e.outcome);
   });
 
   $(document).on(viewEvents.drawSums.type, function(e) {
@@ -29,6 +29,9 @@ module.exports = {
 }
 
 function printFromData(data) {
+  $(incomesId).empty();
+  $(outcomesId).empty();
+
   $.each(data.incomes, function(key, income) {
     printIncome(income);
   });

@@ -10,7 +10,6 @@ module.exports = {
 }
 
 function init(data) {
-  drawer.setCurrency(data.currency);
   drawer.printFromData(data);
   mover.init();
 }

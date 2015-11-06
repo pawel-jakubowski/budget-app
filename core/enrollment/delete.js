@@ -20,15 +20,15 @@ function deleteEnrollmentByName(name, container) {
 }
 
 function deleteIncomeFromAccount(name) {
-  var accountData = settings.getAccount();
+  var enrollments = settings.getCurrentEnrollments();
   console.log("Delete from settings income: " + name);
-  accountData.incomes = deleteEnrollmentByName(name, accountData.incomes);
-  settings.saveAccount(accountData);
+  enrollments.incomes = deleteEnrollmentByName(name, enrollments.incomes);
+  settings.saveCurrentEnrollments(enrollments);
 }
 
 function deleteOutcomeFromAccount(name) {
-  var accountData = settings.getAccount();
+  var enrollments = settings.getCurrentEnrollments();
   console.log("Delete from settings outcome: " + name);
-  accountData.outcomes = deleteEnrollmentByName(name, accountData.outcomes);
-  settings.saveAccount(accountData);
+  enrollments.outcomes = deleteEnrollmentByName(name, enrollments.outcomes);
+  settings.saveCurrentEnrollments(enrollments);
 }

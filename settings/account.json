@@ -2,26 +2,36 @@
     "name": "Moje konto",
     "currency": "zł",
     "incomes": [
-        {
-            "name": "Ulotki",
-            "value": 800,
-            "pinned": true
-        },
-        {
-            "name": "Stypendium",
-            "value": 400,
-            "pinned": false
-        }
+      {
+        "date": "11.2015",
+        "enrollments": [
+            {
+                "name": "Ulotki",
+                "value": 800,
+                "pinned": true
+            },
+            {
+                "name": "Stypendium",
+                "value": 400,
+                "pinned": false
+            }
+          ]
+      }
     ],
     "outcomes": [
-        {
-            "name": "Wynajem",
-            "value": 1100,
-            "pinned": true
-        },
-        {
-            "name": "Bilet MPK",
-            "value": 100
-        }
+      {
+        "date": "11.2015",
+        "enrollments": [
+            {
+                "name": "Wynajem",
+                "value": 1100,
+                "pinned": true
+            },
+            {
+                "name": "Bilet MPK",
+                "value": 100
+            }
+        ]
+      }
     ]
 }

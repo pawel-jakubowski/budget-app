@@ -20,15 +20,15 @@ function changeEnrollmentByName(name, pinned, container) {
 }
 
 function changePinIncomeState(name, pinned) {
-  var accountData = settings.getAccount();
+  var enrollments = settings.getCurrentEnrollments();
   console.log((pinned ? "Pin" : "Unpin") + " settings income: " + name);
-  changeEnrollmentByName(name, pinned, accountData.incomes);
-  settings.saveAccount(accountData);
+  changeEnrollmentByName(name, pinned, enrollments.incomes);
+  settings.saveCurrentEnrollments(enrollments);
 }
 
 function changePinOutcomeState(name, pinned) {
-  var accountData = settings.getAccount();
+  var enrollments = settings.getCurrentEnrollments();
   console.log((pinned ? "Pin" : "Unpin") + " settings outcome: " + name);
-  changeEnrollmentByName(name, pinned, accountData.outcomes);
-  settings.saveAccount(accountData);
+  changeEnrollmentByName(name, pinned, enrollments.outcomes);
+  settings.saveCurrentEnrollments(enrollments);
 }

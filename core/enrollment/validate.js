@@ -23,9 +23,11 @@ function isOutcomeNameValid(name) {
 
 function isNameUniqueInContainer(name, container) {
   var added=false;
-  $.map(container, function(element, index) {
-    if (element.name === name)
-      added = true;
-  });
+  // $.each(container, function(enrollments, index){
+    $.map(container.enrollments, function(element, index) {
+      if (element.name === name)
+        added = true;
+    });
+  // });
   return !added;
 }

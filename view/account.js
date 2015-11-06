@@ -13,10 +13,12 @@ module.exports = {
 function init(newSettings) {
   settings = newSettings;
   var data = settings.getAccount();
+  var currentEnrollments = settings.getCurrentEnrollments();
 
   setName(data.name);
   enrollmentForm.setCurrency(data.currency);
-  enrollments.init(data);
+  enrollments.setCurrency(data.currency);
+  enrollments.init(currentEnrollments);
   enrollmentForm.setAccountView(module.exports);
 };
 

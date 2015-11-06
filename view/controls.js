@@ -1,3 +1,6 @@
+var settings = appRequire("settings.js");
+var drawer = require("./enrollment/draw.js");
+
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
   /* Navbar */
   $("#addEntityLink").click(function(e) {
@@ -25,6 +28,13 @@ $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
     minViewMode: "months",
     language: "pl"
   });
+
+  $('#monthpicker').change(function(){
+    var newDate = $(this).val();
+    settings.setCurrentDate(newDate);
+    var monthEnrollments = settings.getCurrentEnrollments();
+    drawer.printFromData(monthEnrollments);
+  })
 
   $('#monthpicker').datepicker('update', new Date());
 });

@@ -4,15 +4,15 @@ var viewEvents = settings.viewEvents;
 
 $(document).on(coreEvents.viewReady.type, function() {
   $(document).on(viewEvents.moveIncomes.type, function(e) {
-    var data = settings.getAccount();
+    var data = settings.getCurrentEnrollments();
     data.incomes = move(e.from, e.to, data.incomes);
-    settings.saveAccount(data);
+    settings.saveCurrentEnrollments(data);
   });
 
   $(document).on(viewEvents.moveOutcomes.type, function(e) {
-    var data = settings.getAccount();
+    var data = settings.getCurrentEnrollments();
     data.outcomes = move(e.from, e.to, data.outcomes);
-    settings.saveAccount(data);
+    settings.saveCurrentEnrollments(data);
   });
 });
 
