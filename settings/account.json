@@ -12,18 +12,7 @@
                 },
                 {
                     "name": "Stypendium",
-                    "value": 400,
-                    "pinned": false
-                }
-            ]
-        },
-        {
-            "date": "12.2015",
-            "enrollments": [
-                {
-                    "name": "test",
-                    "value": 123,
-                    "pinned": true
+                    "value": 400
                 }
             ]
         }
@@ -33,19 +22,14 @@
             "date": "11.2015",
             "enrollments": [
                 {
-                    "name": "Wynajem",
-                    "value": 1100,
-                    "pinned": true
-                },
-                {
                     "name": "Bilet MPK",
                     "value": 100
+                },
+                {
+                    "name": "Wynajem",
+                    "value": 1100
                 }
             ]
-        },
-        {
-            "date": "12.2015",
-            "enrollments": []
         }
     ]
 }

@@ -1,20 +1,24 @@
+Date.prototype.getSettingsDate = function() {
+   var mm = (this.getMonth()+1).toString();
+   var yyyy = this.getFullYear().toString();
+   return (mm[1]?mm:"0"+mm[0]) + "." + yyyy;
+};
+
 var fs = require("fs");
 var events = {
   settingsLoaded: jQuery.Event("settings-loaded")
 };
 var account = {};
-var currentDate = "02.1992"; //fixed rigth now
+var currentDate = new Date().getSettingsDate(); //fixed rigth now
 var settingsFile = __dirname+"/settings/account.json";
 
 $.getJSON(settingsFile).then(function(data) {
   console.log(data);
   account = data;
-  account.incomesIsOldFormat = isOldFormat(account.incomes);
-  account.outcomesIsOldFormat = isOldFormat(account.outcomes);
 
-  if(account.incomesIsOldFormat || account.outcomesIsOldFormat) {
-    var enrollments = getCurrentEnrollments();
-    saveCurrentEnrollments(enrollments);
+  if(isOldFormat(account.incomes) || isOldFormat(account.outcomes)) {
+    var account = translateFromOldFormat(account);
+    saveAccount(account);
   }
 
   $(document).trigger(events.settingsLoaded);
@@ -27,6 +31,18 @@ function isOldFormat(enrollmentContainer) {
     return true;
   }
   return false;
+}
+
+function translateFromOldFormat(oldAccount) {
+  oldAccount.incomes = [{
+    date: currentDate,
+    enrollments: oldAccount.incomes
+  }];
+  oldAccount.outcomes = [{
+    date: currentDate,
+    enrollments: oldAccount.outcomes
+  }];
+  return oldAccount;
 }
 
 module.exports = {
@@ -49,23 +65,15 @@ function getCurrentEnrollments() {
   enrollments.incomes = [];
   enrollments.outcomes = [];
 
-  if(account.incomesIsOldFormat)
-    enrollments.incomes = account.incomes;
-  else {
-    $.map(account.incomes, function(incomesGroup, index) {
-      if (incomesGroup.date === currentDate)
-        enrollments.incomes = incomesGroup.enrollments;
-    });
-  }
+  $.map(account.incomes, function(incomesGroup, index) {
+    if (incomesGroup.date === currentDate)
+      enrollments.incomes = incomesGroup.enrollments;
+  });
 
-  if(account.outcomesIsOldFormat)
-    enrollments.outcomes = account.outcomes;
-  else {
-    $.map(account.outcomes, function(outcomesGroup, index) {
-      if (outcomesGroup.date === currentDate)
-        enrollments.outcomes = outcomesGroup.enrollments;
-    });
-  }
+  $.map(account.outcomes, function(outcomesGroup, index) {
+    if (outcomesGroup.date === currentDate)
+      enrollments.outcomes = outcomesGroup.enrollments;
+  });
 
   return enrollments;
 };
@@ -77,16 +85,12 @@ function setCurrentDate(date) {
 function saveCurrentEnrollments(enrollments) {
   currentDate = currentDate;
 
-  var currentIncome = 0;
-  if (!account.incomesIsOldFormat)
-    currentIncome = findCurrentEnrollmentIndex(account.incomes);
+  var currentIncome = findCurrentEnrollmentIndex(account.incomes);
   account.incomes[currentIncome] = {};
   account.incomes[currentIncome].date = currentDate;
   account.incomes[currentIncome].enrollments = enrollments.incomes;
 
-  var currentOutcome = 0;
-  if (!account.outcomesIsOldFormat)
-    currentOutcome = findCurrentEnrollmentIndex(account.incomes);
+  var currentOutcome = findCurrentEnrollmentIndex(account.incomes);
   account.outcomes[currentOutcome] = {};
   account.outcomes[currentOutcome].date = currentDate;
   account.outcomes[currentOutcome].enrollments = enrollments.outcomes;
@@ -104,6 +108,7 @@ function findCurrentEnrollmentIndex(enrollmentsContainer) {
 }
 
 function saveAccount(newAccount) {
+  console.log(newAccount);
   var strJson = JSON.stringify(newAccount, null, 4);
   fs.writeFileSync(settingsFile, strJson);
   account = newAccount;
