@@ -1,6 +1,6 @@
 {
   "name"          : "BudgetApp",
-  "version"       : "0.2.1",
+  "version"       : "0.2.2",
   "author"        : "Paweł Jakubowski",
   "main"          : "main.js",
   "repository"    :
@@ -10,5 +10,5 @@
       "branch"    : "master",
       "sha"       : "HEAD"
     },
-  "contributions" : "jQuery, bootstrap, glyphicons.com"
+  "contributions" : "jQuery, bootstrap, bootstrap-datepicker, glyphicons.com"
 }
