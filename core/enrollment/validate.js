@@ -14,17 +14,17 @@ function isOutcomeValid(name, value) {
 }
 
 function isIncomeNameValid(name) {
-  return isNameUniqueInContainer(name, settings.getAccount().incomes);
+  return isNameUniqueInContainer(name, settings.getCurrentEnrollments().incomes);
 }
 
 function isOutcomeNameValid(name) {
-  return isNameUniqueInContainer(name, settings.getAccount().outcomes);
+  return isNameUniqueInContainer(name, settings.getCurrentEnrollments().outcomes);
 }
 
 function isNameUniqueInContainer(name, container) {
   var added=false;
   // $.each(container, function(enrollments, index){
-    $.map(container.enrollments, function(element, index) {
+    $.map(container, function(element, index) {
       if (element.name === name)
         added = true;
     });

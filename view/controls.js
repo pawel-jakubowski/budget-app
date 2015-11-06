@@ -1,4 +1,5 @@
 var settings = appRequire("settings.js");
+var coreEvents = appRequire("core/events.js");
 var drawer = require("./enrollment/draw.js");
 
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
@@ -34,6 +35,8 @@ $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
     settings.setCurrentDate(newDate);
     var monthEnrollments = settings.getCurrentEnrollments();
     drawer.printFromData(monthEnrollments);
+    $(document).trigger(coreEvents.updateIncomesSum);
+    $(document).trigger(coreEvents.updateOutcomesSum);
   })
 
   $('#monthpicker').datepicker('update', new Date());
