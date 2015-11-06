@@ -16,11 +16,6 @@ $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
   var accountData = settings.getAccount();
   var accountView = view.getAccount();
 
-  $("#addEntityLink").click(function(e) {
-    $(this).parent("li").toggleClass("active");
-    $("#addEnrollmentForm").toggle("slide");
-  });
-
   console.log("You are running jQuery version: " + $.fn.jquery);
   console.log("Account object:");
   console.log(accountData);

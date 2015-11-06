@@ -5,26 +5,36 @@
     <title>BudgetApp</title>
     <link rel="stylesheet" href="utils/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="utils/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="utils/datepicker/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="utils/budget.css">
     <script src="core/main.js"></script>
     <script src="utils/bootstrap/js/bootstrap.min.js"></script>
+    <script src="utils/datepicker/js/bootstrap-datepicker.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#navbar-content" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="navbar-brand">BudgetApp</span>
+          <!-- <span class="navbar-brand">BudgetApp</span> -->
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navbar-content">
+          <form id="chooseMonthForm" class="navbar-form navbar-left" role="set-month">
+            <div class="input-group">
+              <span class="input-group-addon">Wybierz miesiac</span>
+              <input id="monthpicker" class="form-control" readonly="" type="text">
+            </div>
+          </form>
+
           <ul class="nav navbar-nav navbar-left">
             <li class="active"><a id="addEntityLink" href="#">Dodaj wpis</a></li>
           </ul>
@@ -57,8 +67,8 @@
           <p class="navbar-text navbar-right">
             Konto: <span id="account-name" />
           </p>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </div>
+      </div>
     </nav>
 
     <div id="account">

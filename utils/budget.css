@@ -2,73 +2,77 @@ body {
   background-image: url("img/groovepaper.png");
   padding: 20px;
 }
+#monthpicker {
+  width: 80px;
+  cursor: pointer;
+}
 #account {
   max-width: 800px;
 }
 #outcomes {
   margin-left: 0px;
 }
-#outcomes > div.row {
+#outcomes > .enrollment {
   padding: 5px;
   border-top: 1px solid #DDD;
   cursor: -webkit-grab;
   background-color: rgba(255, 255, 255, 0.6);
 }
-#outcomes > div.row:nth-of-type(2n+1) {
+#outcomes > .enrollment:nth-of-type(2n+1) {
   background-color: rgba(249, 249, 249, 0.6);
 }
-#outcomes > div.row:hover {
+#outcomes > .enrollment:hover {
   background-color: rgba(220, 220, 220, 0.6);
 }
-#outcomes > div.row.row.ui-sortable-helper {
+#outcomes > .enrollment.row.ui-sortable-helper {
   cursor: -webkit-grabbing;
 }
-#outcomes > div.row .checkbox-pin-btn {
+#outcomes > .enrollment .checkbox-pin-btn {
   min-width: 24px;
   min-height: 20px;
 }
-#outcomes > div.row .checkbox-pin-btn .icon {
+#outcomes > .enrollment .checkbox-pin-btn .icon {
   display: none;
   width: 12px;
   height: 12px;
 }
-#outcomes > div.row .checkbox-pin-btn.active .icon {
+#outcomes > .enrollment .checkbox-pin-btn.active .icon {
   display: inline;
 }
-#outcomes > div.row .checkbox-pin-btn:hover .icon {
+#outcomes > .enrollment .checkbox-pin-btn:hover .icon {
   display: inline;
 }
 #incomes {
   margin-left: 0px;
 }
-#incomes > div.row {
+#incomes > .enrollment {
   padding: 5px;
   border-top: 1px solid #DDD;
   cursor: -webkit-grab;
   background-color: rgba(255, 255, 255, 0.6);
 }
-#incomes > div.row:nth-of-type(2n+1) {
+#incomes > .enrollment:nth-of-type(2n+1) {
   background-color: rgba(249, 249, 249, 0.6);
 }
-#incomes > div.row:hover {
+#incomes > .enrollment:hover {
   background-color: rgba(220, 220, 220, 0.6);
 }
-#incomes > div.row.row.ui-sortable-helper {
+#incomes > .enrollment.row.ui-sortable-helper {
   cursor: -webkit-grabbing;
 }
-#incomes > div.row .checkbox-pin-btn {
+#incomes > .enrollment .checkbox-pin-btn {
   min-width: 24px;
   min-height: 20px;
 }
-#incomes > div.row .checkbox-pin-btn .icon {
+#incomes > .enrollment .checkbox-pin-btn .icon {
   display: none;
   width: 12px;
   height: 12px;
 }
-#incomes > div.row .checkbox-pin-btn.active .icon {
+#incomes > .enrollment .checkbox-pin-btn.active .icon {
   display: inline;
 }
-#incomes > div.row .checkbox-pin-btn:hover .icon {
+#incomes > .enrollment .checkbox-pin-btn:hover .icon {
   display: inline;
 }
 .radio-group {
