@@ -8,11 +8,12 @@
                 {
                     "name": "Ulotki",
                     "value": 800,
-                    "pinned": true
+                    "pinned": false
                 },
                 {
                     "name": "Stypendium",
-                    "value": 400
+                    "value": 400,
+                    "pinned": false
                 }
             ]
         }
@@ -23,11 +24,13 @@
             "enrollments": [
                 {
                     "name": "Wynajem",
-                    "value": 1100
+                    "value": 1100,
+                    "pinned": false
                 },
                 {
                     "name": "Bilet MPK",
-                    "value": 100
+                    "value": 100,
+                    "pinned": false
                 }
             ]
         }

@@ -54,8 +54,6 @@ module.exports = {
 }
 
 function getAccount() {
-  console.log("get");
-  console.log(account);
   return account;
 };
 
@@ -107,7 +105,6 @@ function findCurrentEnrollmentIndex(enrollmentsContainer) {
 }
 
 function saveAccount(newAccount) {
-  console.log(newAccount);
   var strJson = JSON.stringify(newAccount, null, 4);
   fs.writeFileSync(settingsFile, strJson);
   account = newAccount;

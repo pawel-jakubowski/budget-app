@@ -4,19 +4,19 @@ var incomesId = "#" + tools.incomesId;
 var outcomesId = "#" + tools.outcomesId;
 var pinClass = "." + tools.enrollmentClass + " " + tools.pinClass;
 
-$(document).ready(function() {
-  $(incomesId).on("change", pinClass, function(){
+$(document).on(settings.settingsEvents.settingsLoaded.type, function() {
+  $(incomesId).on("click", pinClass, function(){
     processPinChange($(this), viewEvents.pinIncome);
   });
 
-  $(outcomesId).on("change", pinClass, function(){
+  $(outcomesId).on("click", pinClass, function(){
     processPinChange($(this), viewEvents.pinOutcome);
   });
 });
 
 function processPinChange(object, event) {
   var enrollment = deduceEnrollmentFromChild(object);
-  event.pinned = $(object).hasClass("active");
+  event.pinned = !$(object).hasClass("active");
   event.name = getEnrollmentName(enrollment);
   $(document).trigger(event);
 }
