@@ -26,8 +26,7 @@ function updateApplication() {
         output += chunk.toString('utf8');
       }).on("end", function(){
         output = JSON.parse(output);
-        console.log("compare " + e.info.version + " with " + output.version);
-        if (e.info.version < output.version) {
+        if (isGreaterVersion(e.info.version,output.version)) {
           coreEvents.appUpdateAvailable.newVersion = output.version;
           coreEvents.appUpdateAvailable.currentVersion = e.info.version;
           $(document).trigger(coreEvents.appUpdateAvailable);
@@ -35,6 +34,15 @@ function updateApplication() {
       });
     });
   });
+}
+
+function isGreaterVersion(oldVersion, newVersion) {
+  console.log("compare " + oldVersion + " with " + newVersion);
+  var oldVersion = oldVersion.split('.');
+  var newVersion = newVersion.split('.');
+  return parseInt(newVersion[0]) > parseInt(oldVersion[0]) ||
+    parseInt(newVersion[1]) > parseInt(oldVersion[1]) ||
+    parseInt(newVersion[2]) > parseInt(oldVersion[2]);
 }
 
 $(document).on(coreEvents.appUpdateStart.type, function() {
@@ -93,6 +101,7 @@ function createDirectories(dirs) {
       }
     }
     var mkdirpSync = function (dirpath) {
+      console.log("create directory: " + dirpath);
       var parts = dirpath.split(path.sep);
       for( var i = 1; i <= parts.length; i++ ) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
