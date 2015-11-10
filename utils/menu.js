@@ -46,7 +46,8 @@ Menu.setApplicationMenu(menu);
 var appInfoFile = "package.json";
 var appInfo = {};
 $.getJSON(appRootDir + '/' + appInfoFile).then(function(data) {
-  console.log("App data: " + data);
+  console.log("App data:");
+  console.log(data);
   appInfo = data;
 });
 

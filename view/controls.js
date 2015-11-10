@@ -3,13 +3,18 @@ var coreEvents = appRequire("core/events.js");
 var drawer = require("./enrollment/draw.js");
 
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
-  /* Navbar */
+  initializeNavbar();
+  initializeDatapicker();
+});
+
+function initializeNavbar() {
   $("#addEntityLink").click(function(e) {
     $(this).parent("li").toggleClass("active");
     $("#addEnrollmentForm").toggle("slide");
   });
+}
 
-  /* Datepicker */
+function initializeDatapicker() {
   $.fn.datepicker.dates['pl'] = {
     days:["niedziela","poniedziałek","wtorek","środa","czwartek","piątek","sobota"],
     daysShort:["niedz.","pon.","wt.","śr.","czw.","piąt.","sob."],
@@ -37,7 +42,7 @@ $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
     drawer.printFromData(monthEnrollments);
     $(document).trigger(coreEvents.updateIncomesSum);
     $(document).trigger(coreEvents.updateOutcomesSum);
-  })
+  });
 
   $('#monthpicker').datepicker('update', new Date());
-});
+}

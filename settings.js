@@ -13,14 +13,11 @@ var currentDate = new Date().getSettingsDate(); //fixed rigth now
 var settingsFile = __dirname+"/settings/account.json";
 
 $.getJSON(settingsFile).then(function(data) {
-  console.log(data);
   account = data;
-
   if(isOldFormat(account.incomes) || isOldFormat(account.outcomes)) {
-    var account = translateFromOldFormat(account);
+    account = translateFromOldFormat(account);
     saveAccount(account);
   }
-
   $(document).trigger(events.settingsLoaded);
 });
 
@@ -57,6 +54,8 @@ module.exports = {
 }
 
 function getAccount() {
+  console.log("get");
+  console.log(account);
   return account;
 };
 

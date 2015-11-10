@@ -22,12 +22,12 @@
             "date": "11.2015",
             "enrollments": [
                 {
-                    "name": "Bilet MPK",
-                    "value": 100
-                },
-                {
                     "name": "Wynajem",
                     "value": 1100
+                },
+                {
+                    "name": "Bilet MPK",
+                    "value": 100
                 }
             ]
         }
