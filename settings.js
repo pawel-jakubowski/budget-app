@@ -61,17 +61,16 @@ function getCurrentEnrollments() {
   var enrollments = {};
   enrollments.incomes = [];
   enrollments.outcomes = [];
-
   $.map(account.incomes, function(incomesGroup, index) {
-    if (incomesGroup.date === currentDate)
-      enrollments.incomes = incomesGroup.enrollments;
+    if (incomesGroup.date === currentDate || incomesGroup.date === "pinned") {
+      enrollments.incomes = enrollments.incomes.concat(incomesGroup.enrollments);
+    }
   });
 
   $.map(account.outcomes, function(outcomesGroup, index) {
-    if (outcomesGroup.date === currentDate)
-      enrollments.outcomes = outcomesGroup.enrollments;
+    if (outcomesGroup.date === currentDate || outcomesGroup.date === "pinned")
+      enrollments.outcomes = enrollments.outcomes.concat(outcomesGroup.enrollments);
   });
-
   return enrollments;
 };
 
@@ -80,17 +79,22 @@ function setCurrentDate(date) {
 }
 
 function saveCurrentEnrollments(enrollments) {
-  currentDate = currentDate;
+  var separatedIncomes = extractPinned(enrollments.incomes);
+
+  var pinnedIndex = getPinnedIndex(account.incomes);
+  account.incomes[pinnedIndex] = separatedIncomes.pinned;
 
   var currentIncome = findCurrentEnrollmentIndex(account.incomes);
-  account.incomes[currentIncome] = {};
-  account.incomes[currentIncome].date = currentDate;
-  account.incomes[currentIncome].enrollments = enrollments.incomes;
+  account.incomes[currentIncome] = separatedIncomes.unpinned;
 
-  var currentOutcome = findCurrentEnrollmentIndex(account.incomes);
-  account.outcomes[currentOutcome] = {};
-  account.outcomes[currentOutcome].date = currentDate;
-  account.outcomes[currentOutcome].enrollments = enrollments.outcomes;
+
+  var separatedOutcomes = extractPinned(enrollments.outcomes);
+
+  var pinnedIndex = getPinnedIndex(account.outcomes);
+  account.outcomes[pinnedIndex] = separatedOutcomes.pinned;
+
+  var currentOutcome = findCurrentEnrollmentIndex(account.outcomes);
+  account.outcomes[currentOutcome] = separatedOutcomes.unpinned;
 
   saveAccount(account);
 }
@@ -102,6 +106,39 @@ function findCurrentEnrollmentIndex(enrollmentsContainer) {
       current = index;
   });
   return current;
+}
+
+function getPinnedIndex(container) {
+  var pinnedGroup = {date: "pinned", enrollments: []};
+  var pinnedIndex = -1;
+  $.map(account.incomes, function(value, index){
+    if(value.hasOwnProperty("date") && value.date === "pinned")
+      pinnedIndex = index;
+  });
+  if(pinnedIndex === -1) {
+    account.incomes.unshift(pinnedGroup);
+    pinnedIndex = 0;
+  }
+  return pinnedIndex;
+}
+
+function extractPinned(container) {
+  var separatedContainer = {};
+  separatedContainer.pinned = {
+    date: "pinned",
+    enrollments: []
+  };
+  separatedContainer.unpinned = {
+    date: currentDate,
+    enrollments: []
+  };
+  $.map(container, function(value, index){
+    if(value.pinned)
+      separatedContainer.pinned.enrollments.push(value);
+    else
+      separatedContainer.unpinned.enrollments.push(value);
+  });
+  return separatedContainer;
 }
 
 function saveAccount(newAccount) {

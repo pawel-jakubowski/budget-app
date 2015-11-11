@@ -3,6 +3,10 @@
     "currency": "zł",
     "incomes": [
         {
+            "date": "pinned",
+            "enrollments": []
+        },
+        {
             "date": "11.2015",
             "enrollments": [
                 {
@@ -16,9 +20,17 @@
                     "pinned": false
                 }
             ]
+        },
+        {
+            "date": "12.2015",
+            "enrollments": []
         }
     ],
     "outcomes": [
+        {
+            "date": "pinned",
+            "enrollments": []
+        },
         {
             "date": "11.2015",
             "enrollments": [
@@ -33,6 +45,10 @@
                     "pinned": false
                 }
             ]
+        },
+        {
+            "date": "12.2015",
+            "enrollments": []
         }
     ]
 }
