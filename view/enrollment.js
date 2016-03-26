@@ -3,6 +3,7 @@ var drawer = require("./enrollment/draw.js");
 var mover = require("./enrollment/move.js");
 var deleter = require("./enrollment/delete.js");
 var pinner = require("./enrollment/pin.js");
+var editor = require("./enrollment/edit.js");
 
 module.exports = {
   init: init,

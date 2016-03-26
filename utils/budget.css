@@ -25,6 +25,10 @@
 /* Avatar name */
 #account-name { font-weight: bold; }
 
+/* Edit toggle */
+.nav-toggle { color: #FFF; }
+.mdl-icon-toggle.is-checked .nav-toggle { color: rgba(0,0,0,0.56); }
+
 /* Add FAB */
 #addEntityFab {
   position: relative;
@@ -49,3 +53,6 @@
   background-color: rgb(83,109,254);
   color: #FFF;
 }
+
+/* Dialogs */
+.info-dialog { width: inherit; min-width: 280px; max-width: 480px; }

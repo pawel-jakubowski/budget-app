@@ -20,6 +20,7 @@ module.exports = {
   generalSumId: "general-sum",
   enrollmentClass: "enrollment",
   nameClass: "name",
+  valueClass: "value",
   deleterClass: "." + deleterClass,
   pinClass: "." + pinClass,
   deleteButton: deleteButton,

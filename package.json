@@ -10,5 +10,9 @@
       "branch"    : "master",
       "sha"       : "HEAD"
     },
-  "contributions" : "jQuery, bootstrap, bootstrap-datepicker, glyphicons.com"
+  "contributions" : [
+      { "name": "jQuery" },
+      { "name": "Material Design Lite" },
+      { "name": "Material Design Icons"}
+  ]
 }

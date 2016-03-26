@@ -23,15 +23,13 @@
         <div class="mdl-layout__header-row">
           <span class="mdl-layout-title">BudgetApp</span>
           <div class="mdl-layout-spacer"></div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-              <i class="material-icons">search</i>
-            </label>
-            <div class="mdl-textfield__expandable-holder">
-              <input class="mdl-textfield__input" type="text" id="search">
-              <label class="mdl-textfield__label" for="search">Wpisz zapytanie...</label>
-            </div>
-          </div>
+          <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="edit">
+            <input type="checkbox" id="edit" class="mdl-icon-toggle__input">
+            <i class="nav-toggle mdl-icon-toggle__label material-icons">edit</i>
+          </label>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="bulk" disabled>
+            <i class="material-icons">playlist_add_check</i>
+          </button>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
           </button>
@@ -64,7 +62,7 @@
           <div class="demo-avatar-dropdown">
             <span id="account-name"></span>
             <div class="mdl-layout-spacer"></div>
-            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" disabled>
               <i class="material-icons" role="presentation">arrow_drop_down</i>
               <span class="visuallyhidden">Accounts</span>
             </button>
@@ -75,10 +73,10 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Budżet</a>
-          <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">flag</i>Aktualizacje</a>
+          <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">home</i>Budżet</a>
+          <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">flag</i>Aktualizacje</a>
           <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Pomoc</span></a>
+          <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Pomoc</span></a>
         </nav>
       </div>
 
@@ -86,7 +84,8 @@
       <main class="mdl-layout__content mdl-color--grey-100">
         <div id="account" class="mdl-grid demo-content">
 
-          <div class="mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
+          <!-- CARDS -->
+          <div class="budget-card mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Wydatki</h2>
@@ -103,7 +102,7 @@
             </div>
           </div>
 
-          <div class="mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
+          <div class="budget-card mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Przychody</h2>
@@ -120,6 +119,7 @@
             </div>
           </div>
 
+          <!-- DIALOGS -->
           <dialog id="addDialog" class="mdl-dialog">
             <h4 class="mdl-dialog__title">Nowy wpis</h4>
             <div class="mdl-dialog__content">
@@ -149,10 +149,20 @@
             </div>
           </dialog>
 
-          <dialog id="appInfoDialog" class="mdl-dialog">
+          <dialog id="appInfoDialog" class="info-dialog mdl-dialog">
             <h4 class="mdl-dialog__title">O aplikacji</h4>
             <div class="mdl-dialog__content">
+              <ul class="mdl-list"></ul>
+            </div>
+            <div class="mdl-dialog__actions">
+              <button type="button" class="mdl-button close">Ok</button>
+            </div>
+          </dialog>
 
+          <dialog id="appToolsDialog" class="info-dialog mdl-dialog">
+            <h4 class="mdl-dialog__title">Wykorzystywane narzedzia</h4>
+            <div class="mdl-dialog__content">
+              <ul class='mdl-list'></ul>
             </div>
             <div class="mdl-dialog__actions">
               <button type="button" class="mdl-button close">Ok</button>

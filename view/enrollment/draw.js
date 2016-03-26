@@ -4,6 +4,7 @@ var incomesId = "#" + tools.incomesId;
 var outcomesId = "#" + tools.outcomesId;
 var enrollmentClass = tools.enrollmentClass;
 var nameClass = tools.nameClass;
+var valueClass = tools.valueClass;
 var currency = "$";
 
 $(document).ready(function() {
@@ -25,7 +26,8 @@ $(document).ready(function() {
 module.exports = {
   printFromData: printFromData,
   print: print,
-  setCurrency: setCurrency
+  setCurrency: setCurrency,
+  getValueWithCurrency: getValueWithCurrency
 }
 
 function printFromData(data) {
@@ -72,7 +74,7 @@ function getEnrollmentString(e, type) {
         '<span class="' + nameClass + '">' + e.name + '</span>' +
       '</span>' +
       '<span class="mdl-list__item-secondary-action">' +
-        getValueWithCurrency(e.value) +
+        '<span class="' + valueClass + '">' + getValueWithCurrency(e.value) + '</span>' +
       '</span>' +
     '</li>';
   return enrollment;
