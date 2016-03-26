@@ -4,6 +4,7 @@ var mover = require("./enrollment/move.js");
 var deleter = require("./enrollment/delete.js");
 var pinner = require("./enrollment/pin.js");
 var editor = require("./enrollment/edit.js");
+var sorter = require("./enrollment/sort.js");
 
 module.exports = {
   init: init,

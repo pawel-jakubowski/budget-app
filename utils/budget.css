@@ -44,6 +44,10 @@
   vertical-align: middle;
 }
 
+/* Sort menu */
+.outcomes-sort .material-icons, .incomes-sort .material-icons { color: rgba(0,0,0,0); }
+.outcomes-sort.checked .material-icons, .incomes-sort.checked .material-icons { color: rgba(0,0,0,0.870588); }
+
 /* Change drawer link */
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
   background-color: rgb(83,109,254);
