@@ -3,8 +3,8 @@ var coreEvents = appRequire("core/events.js");
 var drawer = require("./enrollment/draw.js");
 
 $(document).on(settings.settingsEvents.settingsLoaded.type, function() {
-  initializeNavbar();
-  initializeDatapicker();
+  // initializeNavbar();
+  // initializeDatapicker();
 });
 
 function initializeNavbar() {

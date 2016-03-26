@@ -6,12 +6,29 @@ var formCurrencyId = "#form-currency";
 var nameInputId = "#name";
 var valueInputId = "#value";
 var typeId = "input:radio[name=enrollment-type]:checked";
+var addButtonId = "#addDialog";
+var addDialogId = "#addEntityFab";
 
 $(document).ready(function() {
   form = $(formId);
+
+  var dialog = document.querySelector(addButtonId);
+  var showDialogButton = document.querySelector(addDialogId);
+  showDialogButton.addEventListener('click', function() {
+    dialog.showModal();
+  });
+  dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.close();
+  });
+
   form.submit(function(e) {
     e.preventDefault();
     raiseAddEvent(getName(), getValue(), getType());
+  });
+
+  $("#addEnrollmentSubmit").click(function() {
+      console.log('submit');
+      form.submit();
   });
 });
 

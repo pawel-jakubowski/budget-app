@@ -11,5 +11,5 @@ module.exports = {
 
 function init(data) {
   drawer.printFromData(data);
-  mover.init();
+  // mover.init();
 }

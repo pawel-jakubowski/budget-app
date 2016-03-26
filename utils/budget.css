@@ -1,113 +1,51 @@
-body {
-  background-image: url("img/groovepaper.png");
-  padding: 20px;
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* User avatar */
+.demo-avatar { margin-bottom: 6px; }
+
+/* Avatar foreground align and behavior */
+.demo-avatar i {
+  line-height: 48px;
+  cursor: default;
+  -webkit-user-select: none;
 }
-#monthpicker {
-  width: 80px;
-  cursor: pointer;
-}
-#account {
-  max-width: 800px;
-}
-#outcomes {
-  margin-left: 0px;
-}
-#outcomes > .enrollment {
-  padding: 5px;
-  border-top: 1px solid #DDD;
-  cursor: -webkit-grab;
-  background-color: rgba(255, 255, 255, 0.6);
-}
-#outcomes > .enrollment:nth-of-type(2n+1) {
-  background-color: rgba(249, 249, 249, 0.6);
-}
-#outcomes > .enrollment:hover {
-  background-color: rgba(220, 220, 220, 0.6);
-}
-#outcomes > .enrollment.row.ui-sortable-helper {
-  cursor: -webkit-grabbing;
-}
-#outcomes > .enrollment .checkbox-pin-btn {
-  min-width: 24px;
-  min-height: 20px;
-}
-#outcomes > .enrollment .checkbox-pin-btn .icon {
-  display: none;
-  width: 12px;
-  height: 12px;
-}
-#outcomes > .enrollment .checkbox-pin-btn.active .icon {
-  display: inline;
-}
-#outcomes > .enrollment .checkbox-pin-btn:hover .icon {
-  display: inline;
-}
-#incomes {
-  margin-left: 0px;
-}
-#incomes > .enrollment {
-  padding: 5px;
-  border-top: 1px solid #DDD;
-  cursor: -webkit-grab;
-  background-color: rgba(255, 255, 255, 0.6);
-}
-#incomes > .enrollment:nth-of-type(2n+1) {
-  background-color: rgba(249, 249, 249, 0.6);
-}
-#incomes > .enrollment:hover {
-  background-color: rgba(220, 220, 220, 0.6);
-}
-#incomes > .enrollment.row.ui-sortable-helper {
-  cursor: -webkit-grabbing;
-}
-#incomes > .enrollment .checkbox-pin-btn {
-  min-width: 24px;
-  min-height: 20px;
-}
-#incomes > .enrollment .checkbox-pin-btn .icon {
-  display: none;
-  width: 12px;
-  height: 12px;
-}
-#incomes > .enrollment .checkbox-pin-btn.active .icon {
-  display: inline;
-}
-#incomes > .enrollment .checkbox-pin-btn:hover .icon {
-  display: inline;
-}
-.radio-group {
-  display: inline-block;
-  padding: 0px 10px;
-}
-.total {
-  padding: 5px 0px;
-  border-top: 2px solid #DDD;
-  font-weight: bold;
-}
-.total.row {
-  margin: 0px;
-}
-.grand-total {
-  height: 30px;
-}
-#notification-tray {
-  position: fixed;
-  bottom: 0px;
+
+/* Avatar name */
+#account-name { font-weight: bold; }
+
+/* Add FAB */
+#addEntityFab {
+  position: relative;
+  bottom: -24px;
   left: 0px;
-  width: 100%;
-  padding: 10px;
+  display: inline-block;
 }
-#notification-tray > div {
-  width: 100%;
-  margin: 0px;
+
+/* Card info text */
+.mdl-card__info {
+  display: inline-block;
 }
-#notification-tray > .alert-success > .pull-right {
-  margin-top: -7px;
+
+/* Card sum */
+#outcomes-sum, #incomes-sum {
+  font-size: 24px;
+  vertical-align: middle;
 }
-#notification-tray > .progress {
-  height: 30px;
-}
-#notification-tray > .progress > .progress-bar {
-  padding: 5px 0px;
-  font-size: 12pt;
+
+/* Change drawer link */
+.demo-layout .demo-navigation .mdl-navigation__link:hover {
+  background-color: rgb(83,109,254);
+  color: #FFF;
 }

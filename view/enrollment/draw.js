@@ -53,26 +53,28 @@ function setCurrency(newCurrency) {
 
 function printIncome(income) {
   console.log("print income");
-  var enrollment = $(getEnrollmentString(income));
+  var enrollment = $(getEnrollmentString(income, "income"));
   enrollment.appendTo(incomesId);
 };
 
 function printOutcome(outcome) {
   console.log("print outcome");
-  var enrollment = $(getEnrollmentString(outcome));
+  var enrollment = $(getEnrollmentString(outcome, "outcome"));
   enrollment.appendTo(outcomesId);
 }
 
-function getEnrollmentString(e) {
+function getEnrollmentString(e, type) {
+  var icon = type === "income" ? "account_balance_wallet" : "receipt";
   var enrollment =
-    '<div class="' + enrollmentClass + ' row">' +
-      '<div class="col-xs-1 btn-group" data-toggle="buttons">' +
-        tools.pinButton(e.pinned) +
-      '</div>' +
-      '<div class="' + nameClass + ' col-xs-8">' + e.name + '</div>' +
-      '<div class="col-xs-2">' + getValueWithCurrency(e.value) + '</div>' +
-      '<div class="col-xs-1">' + tools.deleteButton + '</div>' +
-    '</div>';
+    '<li class="mdl-list__item ' + enrollmentClass + '">' +
+      '<span class="mdl-list__item-primary-content">' +
+        '<i class="material-icons mdl-dark mdl-list__item-icon">' + icon + '</i>' +
+        '<span class="' + nameClass + '">' + e.name + '</span>' +
+      '</span>' +
+      '<span class="mdl-list__item-secondary-action">' +
+        getValueWithCurrency(e.value) +
+      '</span>' +
+    '</li>';
   return enrollment;
 }
 

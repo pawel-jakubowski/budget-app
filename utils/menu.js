@@ -1,4 +1,27 @@
 var remote = require('remote');
+
+var menuAbout = "#hdrbtn-info";
+var menuDebug = "#hdrbtn-debug";
+var menuAboutTools = "#hdrbtn-tools";
+
+var aboutDialog = "#appInfoDialog";
+
+
+$(document).ready(function() {
+  var dialog = document.querySelector(aboutDialog);
+  $(menuAbout).click(function() {
+    dialog.showModal();
+  });
+  dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.close();
+  });
+
+  $(menuDebug).click(function() {
+      remote.getCurrentWindow().toggleDevTools();
+  });
+});
+
+
 var Menu = remote.require('menu');
 var template = [
   {

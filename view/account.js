@@ -14,12 +14,14 @@ function init(newSettings) {
   settings = newSettings;
   var data = settings.getAccount();
   var currentEnrollments = settings.getCurrentEnrollments();
+  console.log("current enrollments");
+  console.log(currentEnrollments);
 
   setName(data.name);
   enrollmentForm.setCurrency(data.currency);
   enrollments.setCurrency(data.currency);
   enrollments.init(currentEnrollments);
-  enrollmentForm.setAccountView(module.exports);
+  // enrollmentForm.setAccountView(module.exports);
 };
 
 function setName(name) {
