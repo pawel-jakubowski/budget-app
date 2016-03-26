@@ -23,13 +23,19 @@
         <div class="mdl-layout__header-row">
           <span class="mdl-layout-title">BudgetApp</span>
           <div class="mdl-layout-spacer"></div>
-          <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="edit">
-            <input type="checkbox" id="edit" class="mdl-icon-toggle__input">
-            <i class="nav-toggle mdl-icon-toggle__label material-icons">edit</i>
-          </label>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="bulk" disabled>
-            <i class="material-icons">playlist_add_check</i>
-          </button>
+          <div class="button-group base">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="edit">
+              <i class="material-icons">edit</i>
+            </button>
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="bulk" disabled>
+              <i class="material-icons">playlist_add_check</i>
+            </button>
+          </div>
+          <div class="button-group edit">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="edit-ok">
+              <i class="material-icons">check</i>
+            </button>
+          </div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
           </button>

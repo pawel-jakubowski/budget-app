@@ -3,3 +3,4 @@ var deleter = require("./enrollment/delete.js");
 var pinner = require("./enrollment/pin.js");
 var mover = require("./enrollment/move.js");
 var summarizer = require("./enrollment/sum.js");
+var editor = require("./enrollment/edit.js");

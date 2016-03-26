@@ -25,10 +25,6 @@
 /* Avatar name */
 #account-name { font-weight: bold; }
 
-/* Edit toggle */
-.nav-toggle { color: #FFF; }
-.mdl-icon-toggle.is-checked .nav-toggle { color: rgba(0,0,0,0.56); }
-
 /* Add FAB */
 #addEntityFab {
   position: relative;
@@ -56,3 +52,10 @@
 
 /* Dialogs */
 .info-dialog { width: inherit; min-width: 280px; max-width: 480px; }
+
+/* Edit mode enrollments */
+.enrollment.edit { margin: -40px 0px -43px 0px; }
+#outcomes .enrollment.edit:first-of-type, #incomes .enrollment.edit:first-of-type { margin-top: -22px; }
+.name .mdl-textfield { width:inherit; min-width:50px; }
+.value .mdl-textfield { width:inherit; min-width: 40px; }
+.enrollment .mdl-list__item-secondary-action { max-width:100px; }

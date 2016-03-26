@@ -1,31 +1,51 @@
 var viewEvents = appRequire("view/events.js");
 var tools = require("./tools.js");
 var draw = require("./draw.js");
+var incomesId = "#" + tools.incomesId;
+var outcomesId = "#" + tools.outcomesId;
 var enrollmentClass = "." + tools.enrollmentClass;
+var editClass = "edit";
 var nameClass = "." + tools.nameClass;
 var valueClass = "." + tools.valueClass;
 var nameInputClass = "nameInput";
 var valueInputClass = "valueInput";
 
 var editId = "#edit";
+var buttonsClass = ".button-group";
+var editButtonsClass = ".edit";
+var saveId = "#edit-ok";
 
 $(document).ready(function() {
+  editButtonGroup = $(buttonsClass + editButtonsClass);
+  otherButtonGroup = $(buttonsClass).not(editButtonsClass);
+  editButtonGroup.hide();
+
   $(editId).click(function() {
-    var $this = $(this)
-    if ($this.is(':checked')) {
-      enrollmentsEditModeOn();
-    }
-    else {
-      enrollmentsEditModeOff();
-    }
+    enrollmentsEditModeOn();
+    editButtonGroup.show();
+    otherButtonGroup.hide();
+  });
+
+  $(saveId).click(function() {
+    saveEnrollments();
+    enrollmentsEditModeOff();
+    editButtonGroup.hide();
+    otherButtonGroup.show();
   });
 });
 
 function enrollmentsEditModeOn() {
   var names = $(enrollmentClass + " " + nameClass);
   var values = $(enrollmentClass + " " + valueClass);
+
+  $.each(names, function(){
+    var text = $(this).text();
+    $(this).parents(enrollmentClass).attr("old-value", text);
+  });
+
   changeTextToInput(names, getNameInputString);
   changeTextToInput(values, getValueInputString);
+  $(enrollmentClass).addClass(editClass);
   componentHandler.upgradeDom();
 }
 
@@ -34,12 +54,41 @@ function enrollmentsEditModeOff() {
   var values = $(enrollmentClass + " " + valueClass);
   changeInputToText(names, "." + nameInputClass, String);
   changeInputToText(values, "." + valueInputClass, draw.getValueWithCurrency);
+  $(enrollmentClass).removeClass(editClass);
   componentHandler.upgradeDom();
+}
+
+function saveEnrollments() {
+  var enrollments = $(enrollmentClass);
+  $.each(enrollments, function(){
+    var enrollmentOldName = $(this).attr("old-value");
+    var enrollmentName = $(this).find("." + nameInputClass).val();
+    var enrollmentValue = parseInt($(this).find("." + valueInputClass).val());
+    var newEnrollment = { name: enrollmentName, value: enrollmentValue };
+    var type = $(this).parents(incomesId);
+    if (type.length === 1) // Income
+      saveIncome(enrollmentOldName, newEnrollment);
+    else
+      saveOutcome(enrollmentOldName, newEnrollment);
+  });
+}
+
+function saveIncome(oldName, newEnrollment) {
+  viewEvents.editIncome.oldName = oldName;
+  viewEvents.editIncome.newEnrollment = newEnrollment;
+  $(document).trigger(viewEvents.editIncome);
+}
+
+function saveOutcome(oldName, newEnrollment) {
+  viewEvents.editOutcome.oldName = oldName;
+  viewEvents.editOutcome.newEnrollment = newEnrollment;
+  $(document).trigger(viewEvents.editOutcome);
 }
 
 function changeTextToInput(elements, inputGetter) {
   $.each(elements, function(){
-    var input = inputGetter($(this).text());
+    var text = $(this).text();
+    var input = inputGetter(text);
     $(this).html(input);
   });
 }
@@ -47,7 +96,6 @@ function changeTextToInput(elements, inputGetter) {
 function changeInputToText(elements, inputClass, parser) {
   $.each(elements, function(){
     var input = $(this).find(inputClass);
-    console.log(input);
     $(this).html(parser(input.val()));
   });
 }
