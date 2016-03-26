@@ -1,3 +1,4 @@
+var settings = appRequire("settings.js");
 var viewEvents = appRequire("view/events.js");
 var tools = require("./tools.js");
 var draw = require("./draw.js");
@@ -14,6 +15,7 @@ var editId = "#edit";
 var buttonsClass = ".button-group";
 var editButtonsClass = ".edit";
 var saveId = "#edit-ok";
+var cancelId = "#edit-cancel";
 
 $(document).ready(function() {
   editButtonGroup = $(buttonsClass + editButtonsClass);
@@ -29,6 +31,13 @@ $(document).ready(function() {
   $(saveId).click(function() {
     saveEnrollments();
     enrollmentsEditModeOff();
+    editButtonGroup.hide();
+    otherButtonGroup.show();
+  });
+
+  $(cancelId).click(function() {
+    var data = settings.getCurrentEnrollments();
+    draw.printFromData(data);
     editButtonGroup.hide();
     otherButtonGroup.show();
   });
