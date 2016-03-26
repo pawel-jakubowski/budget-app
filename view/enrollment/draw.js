@@ -5,6 +5,7 @@ var outcomesId = "#" + tools.outcomesId;
 var enrollmentClass = tools.enrollmentClass;
 var nameClass = tools.nameClass;
 var valueClass = tools.valueClass;
+var iconClass = tools.iconClass;
 var currency = "$";
 
 $(document).ready(function() {
@@ -40,6 +41,8 @@ function printFromData(data) {
   $.each(data.outcomes, function(key, outcome) {
     printOutcome(outcome);
   });
+
+  $(document).trigger(viewEvents.enrollmentsDrawed);
 }
 
 function print(enrollment) {
@@ -70,7 +73,13 @@ function getEnrollmentString(e, type) {
   var enrollment =
     '<li class="mdl-list__item ' + enrollmentClass + '">' +
       '<span class="mdl-list__item-primary-content">' +
-        '<i class="material-icons mdl-dark mdl-list__item-icon">' + icon + '</i>' +
+        '<span>' +
+          '<i class="' + iconClass + ' material-icons mdl-dark mdl-list__item-icon">' + icon + '</i>' +
+          '<button class="mdl-button mdl-js-button mdl-list__item-icon ' +
+            tools.deleterClass + '">' +
+            '<i class="material-icons">delete</i>' +
+          '</button>' +
+        '</span>' +
         '<span class="' + nameClass + '">' + e.name + '</span>' +
       '</span>' +
       '<span class="mdl-list__item-secondary-action">' +

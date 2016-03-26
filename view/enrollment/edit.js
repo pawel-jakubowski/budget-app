@@ -13,13 +13,14 @@ var valueInputClass = "valueInput";
 
 var editId = "#edit";
 var buttonsClass = ".button-group";
+var baseButtonsClass = ".base";
 var editButtonsClass = ".edit";
 var saveId = "#edit-ok";
 var cancelId = "#edit-cancel";
 
 $(document).ready(function() {
   editButtonGroup = $(buttonsClass + editButtonsClass);
-  otherButtonGroup = $(buttonsClass).not(editButtonsClass);
+  otherButtonGroup = $(buttonsClass + baseButtonsClass);
   editButtonGroup.hide();
 
   $(editId).click(function() {

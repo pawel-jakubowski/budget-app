@@ -21,7 +21,8 @@ module.exports = {
   enrollmentClass: "enrollment",
   nameClass: "name",
   valueClass: "value",
-  deleterClass: "." + deleterClass,
+  iconClass: "enrollment-icon",
+  deleterClass: deleterClass,
   pinClass: "." + pinClass,
   deleteButton: deleteButton,
   pinButton: pinButton

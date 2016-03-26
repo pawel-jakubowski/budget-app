@@ -21,5 +21,7 @@ module.exports = {
   /* Invalid */
   invalidEnrollment: jQuery.Event("invalid-enrollment"),
   /* Update */
-  appUpdateProgress: jQuery.Event("app-update-progress")
+  appUpdateProgress: jQuery.Event("app-update-progress"),
+  /* Ready */
+  enrollmentsDrawed: jQuery.Event("enrollments-drawed")
 }

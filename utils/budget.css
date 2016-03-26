@@ -63,3 +63,6 @@
 .name .mdl-textfield { width:inherit; min-width:50px; }
 .value .mdl-textfield { width:inherit; min-width: 40px; }
 .enrollment .mdl-list__item-secondary-action { max-width:100px; }
+
+/* Enrollment deleter */
+.enrollment .delete .material-icons { vertical-align: text-top; }
