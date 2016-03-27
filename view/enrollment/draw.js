@@ -1,5 +1,6 @@
 var viewEvents = appRequire("view/events.js");
 var tools = require("./tools.js");
+var sort = require("./sort.js");
 var incomesId = "#" + tools.incomesId;
 var outcomesId = "#" + tools.outcomesId;
 var enrollmentClass = tools.enrollmentClass;
@@ -11,10 +12,12 @@ var currency = "$";
 $(document).ready(function() {
   $(document).on(viewEvents.addValidIncome.type, function(e) {
     printIncome(e.income);
+    sort.applySort(incomesId);
   });
 
   $(document).on(viewEvents.addValidOutcome.type, function(e) {
     printOutcome(e.outcome);
+    sort.applySort(outcomesId);
   });
 
   $(document).on(viewEvents.drawSums.type, function(e) {

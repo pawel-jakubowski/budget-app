@@ -14,15 +14,19 @@ var valueSortClass = "values";
 var lowestFirstClass = "lowest-first";
 var highestFirstClass = "highest-first";
 
+var comparator;
+
 $(document).on(viewEvents.enrollmentsDrawed.type, function() {
   $(outcomesSortClass).click(function() {
     $(outcomesSortClass).removeClass(checkedClass);
-    applySort($(this), outcomesId);
+    updateComparator($(this));
+    applySort(outcomesId);
   });
 
   $(incomesSortClass).click(function() {
     $(incomesSortClass).removeClass(checkedClass);
-    applySort($(this), incomesId);
+    updateComparator($(this));
+    applySort(incomesId);
   });
 
   /* Default sorting */
@@ -30,14 +34,16 @@ $(document).on(viewEvents.enrollmentsDrawed.type, function() {
   $(incomesSortClass + "." + valueSortClass + "." + highestFirstClass).click();
 });
 
-function applySort(e, listId) {
+module.exports = {
+  applySort: applySort
+};
+
+function applySort(listId) {
   var items = $(listId).children("li").get();
-  var comparator = chooseComparator(e);
   items = sortItems(items, comparator);
   $.each(items, function(i, li){
     $(listId).append(li);
   });
-  e.addClass(checkedClass);
 }
 
 function sortItems(items, comparator) {
@@ -45,6 +51,11 @@ function sortItems(items, comparator) {
     return comparator(a,b);
   });
   return items;
+}
+
+function updateComparator(e) {
+  comparator = chooseComparator(e);
+  e.addClass(checkedClass);
 }
 
 function chooseComparator(e) {

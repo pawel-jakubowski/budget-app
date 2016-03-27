@@ -1,34 +1,41 @@
+var viewEvents = appRequire("view/events.js");
+var dialog = appRequire("utils/scripts/dialog.js");
+var tools = require("./tools.js");
+
 var accountView = {};
 var form = {};
-var viewEvents = appRequire("view/events.js");
+
 var formId = "#addEnrollmentForm";
 var formCurrencyId = "#form-currency";
 var nameInputId = "#name";
 var valueInputId = "#value";
 var typeId = "input:radio[name=enrollment-type]:checked";
-var addButtonId = "#addDialog";
-var addDialogId = "#addEntityFab";
+var addDialogId = "#addDialog";
+var addButtonId = "#addEntityFab";
+var saveId = "#addEnrollmentSubmit";
+var cancelId = addDialogId + " .close";
 
 $(document).ready(function() {
   form = $(formId);
-
-  var dialog = document.querySelector(addButtonId);
-  var showDialogButton = document.querySelector(addDialogId);
-  showDialogButton.addEventListener('click', function() {
-    dialog.showModal();
-  });
-  dialog.querySelector('.close').addEventListener('click', function() {
-    dialog.close();
-  });
+  dialog.bindDialog(addDialogId, addButtonId);
 
   form.submit(function(e) {
     e.preventDefault();
     raiseAddEvent(getName(), getValue(), getType());
   });
 
-  $("#addEnrollmentSubmit").click(function() {
-      console.log('submit');
-      form.submit();
+  $(addButtonId).click(function() {
+    var enterKey = 13;
+    var escapeKey = 27;
+    tools.bindKeys([enterKey, escapeKey], [saveId, cancelId]);
+  });
+
+  $(saveId).click(function() {
+    form.submit();
+  });
+
+  $(cancelId).click(function() {
+    tools.unbindKeys();
   });
 });
 
@@ -65,11 +72,11 @@ function setCurrency(currency) {
 };
 
 function getName() {
-  return form.find(nameInputId).val()
+  return form.find(nameInputId).val();
 }
 
 function getValue() {
-  return parseInt(form.find(valueInputId).val())
+  return parseInt(form.find(valueInputId).val());
 }
 
 function getType() {

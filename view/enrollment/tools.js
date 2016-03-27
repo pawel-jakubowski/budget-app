@@ -30,8 +30,9 @@ module.exports = {
   unbindKeys: unbindKeys
 }
 
-function bindKeys(keyCodes, buttons) {
-  $(document).bind('keyup', function(e) {
+function bindKeys(keyCodes, buttons, event) {
+  event = typeof event !== 'undefined' ? event : "keyup";
+  $(document).bind(event, function(e) {
     var code = e.keyCode;
     $.each(keyCodes, function(i, keyCode){
       if (code === keyCode)

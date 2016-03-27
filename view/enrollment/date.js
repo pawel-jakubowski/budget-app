@@ -1,5 +1,5 @@
 var settings = appRequire("settings.js");
-var dialog = appRequire("utils/scripts/dialog.js")
+var dialog = appRequire("utils/scripts/dialog.js");
 var moment = appRequire("utils/modules/moment-with-locales.js");
 var drawer = require("./draw.js");
 var tools = require("./tools.js");

@@ -6,11 +6,11 @@ module.exports = {
 }
 
 function isIncomeValid(name, value) {
-  return isIncomeNameValid(name);
+  return isIncomeNameValid(name) && isValueValid(value);
 }
 
 function isOutcomeValid(name, value) {
-  return isOutcomeNameValid(name);
+  return isOutcomeNameValid(name) && isValueValid(value);
 }
 
 function isIncomeNameValid(name) {
@@ -30,4 +30,8 @@ function isNameUniqueInContainer(name, container) {
     });
   // });
   return !added;
+}
+
+function isValueValid(value) {
+  return !isNaN(value) && value > 0;
 }

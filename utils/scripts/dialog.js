@@ -8,6 +8,7 @@ function bindDialog(dialogSelector, dialogButton) {
     dialog.showModal();
   });
   $(dialogSelector + ' .close').click(function() {
-    dialog.close();
+    if ($(dialogSelector).attr("open"))
+      dialog.close();
   });
 }
