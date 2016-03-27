@@ -4,18 +4,7 @@
     "incomes": [
         {
             "date": "pinned",
-            "enrollments": [
-                {
-                    "name": "Test 1",
-                    "value": 950,
-                    "pinned": true
-                },
-                {
-                    "name": "Test 2",
-                    "value": 750,
-                    "pinned": true
-                }
-            ]
+            "enrollments": []
         },
         {
             "date": "12.2015",
@@ -33,8 +22,16 @@
             "date": "03.2016",
             "enrollments": [
                 {
-                    "name": "test",
-                    "value": 122
+                    "name": "Test 2",
+                    "value": 1200
+                },
+                {
+                    "name": "Test 1",
+                    "value": 1100
+                },
+                {
+                    "name": "testA",
+                    "value": 33
                 }
             ]
         }
@@ -42,23 +39,7 @@
     "outcomes": [
         {
             "date": "pinned",
-            "enrollments": [
-                {
-                    "name": "Test 1",
-                    "value": 1100,
-                    "pinned": true
-                },
-                {
-                    "name": "Test 2",
-                    "value": 150,
-                    "pinned": true
-                },
-                {
-                    "name": "Test 3",
-                    "value": 50,
-                    "pinned": true
-                }
-            ]
+            "enrollments": []
         },
         {
             "date": "01.2016",
@@ -72,12 +53,20 @@
             "date": "03.2016",
             "enrollments": [
                 {
-                    "name": "test 2",
-                    "value": 123
+                    "name": "Test 3",
+                    "value": 45
+                },
+                {
+                    "name": "Test 2",
+                    "value": 1500
                 },
                 {
                     "name": "test",
                     "value": 22
+                },
+                {
+                    "name": "heh",
+                    "value": 444
                 }
             ]
         }

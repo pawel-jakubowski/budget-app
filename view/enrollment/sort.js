@@ -1,4 +1,5 @@
 var tools = require("./tools.js");
+var viewEvents = appRequire("view/events.js");
 var incomesId = "#" + tools.incomesId;
 var outcomesId = "#" + tools.outcomesId;
 var nameClass = "." + tools.nameClass;
@@ -13,7 +14,7 @@ var valueSortClass = "values";
 var lowestFirstClass = "lowest-first";
 var highestFirstClass = "highest-first";
 
-$(document).ready(function() {
+$(document).on(viewEvents.enrollmentsDrawed , function() {
   $(outcomesSortClass).click(function() {
     $(outcomesSortClass).removeClass(checkedClass);
     applySort($(this), outcomesId);
@@ -23,6 +24,10 @@ $(document).ready(function() {
     $(incomesSortClass).removeClass(checkedClass);
     applySort($(this), incomesId);
   });
+
+  /* Default sorting */
+  $(outcomesSortClass + "." + valueSortClass + "." + highestFirstClass).click();
+  $(incomesSortClass + "." + valueSortClass + "." + highestFirstClass).click();
 });
 
 function applySort(e, listId) {

@@ -8,6 +8,8 @@ var deleterClass = "." + tools.enrollmentClass + " ." + tools.deleterClass;
 var iconClass = "." + tools.enrollmentClass + " ." + tools.iconClass;
 var enrollmentClass = "." + tools.enrollmentClass;
 
+var hiddenClass = "hidden";
+
 var buttonsClass = ".button-group";
 var baseButtonsClass = ".base";
 var deleteButtonsClass = ".delete";
@@ -52,12 +54,12 @@ $(document).on(viewEvents.enrollmentsDrawed.type, function() {
 });
 
 function enrollmentsDeleteModeOn() {
-  $(deleterClass).show();
+  $(deleterClass).removeClass(hiddenClass);
   $(iconClass).hide();
 }
 
 function enrollmentsDeleteModeOff() {
-  $(deleterClass).hide();
+  $(deleterClass).addClass(hiddenClass);
   $(iconClass).show();
 }
 

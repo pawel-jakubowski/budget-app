@@ -75,7 +75,7 @@ function getEnrollmentString(e, type) {
       '<span class="mdl-list__item-primary-content">' +
         '<span>' +
           '<i class="' + iconClass + ' material-icons mdl-dark mdl-list__item-icon">' + icon + '</i>' +
-          '<button class="mdl-button mdl-js-button mdl-list__item-icon ' +
+          '<button class="mdl-button mdl-js-button mdl-list__item-icon hidden ' +
             tools.deleterClass + '">' +
             '<i class="material-icons">delete</i>' +
           '</button>' +
