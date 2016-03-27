@@ -25,5 +25,21 @@ module.exports = {
   deleterClass: deleterClass,
   pinClass: "." + pinClass,
   deleteButton: deleteButton,
-  pinButton: pinButton
+  pinButton: pinButton,
+  bindKeys: bindKeys,
+  unbindKeys: unbindKeys
+}
+
+function bindKeys(keyCodes, buttons) {
+  $(document).bind('keyup', function(e) {
+    var code = e.keyCode;
+    $.each(keyCodes, function(i, keyCode){
+      if (code === keyCode)
+        $(buttons[i]).trigger("click");
+    });
+  });
+}
+
+function unbindKeys() {
+  $(document).unbind('keyup');
 }

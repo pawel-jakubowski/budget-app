@@ -57,6 +57,10 @@ function enrollmentsEditModeOn() {
   changeTextToInput(values, getValueInputString);
   $(enrollmentClass).addClass(editClass);
   componentHandler.upgradeDom();
+
+  var enterKey = 13;
+  var escapeKey = 27;
+  tools.bindKeys([enterKey, escapeKey], [saveId, cancelId]);
 }
 
 function enrollmentsEditModeOff() {
@@ -66,6 +70,7 @@ function enrollmentsEditModeOff() {
   changeInputToText(values, "." + valueInputClass, draw.getValueWithCurrency);
   $(enrollmentClass).removeClass(editClass);
   componentHandler.upgradeDom();
+  tools.unbindKeys();
 }
 
 function saveEnrollments() {

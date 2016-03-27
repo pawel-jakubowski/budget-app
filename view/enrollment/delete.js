@@ -56,11 +56,15 @@ $(document).on(viewEvents.enrollmentsDrawed.type, function() {
 function enrollmentsDeleteModeOn() {
   $(deleterClass).removeClass(hiddenClass);
   $(iconClass).hide();
+  var enterKey = 13;
+  var escapeKey = 27;
+  tools.bindKeys([enterKey, escapeKey], [saveId, cancelId]);
 }
 
 function enrollmentsDeleteModeOff() {
   $(deleterClass).addClass(hiddenClass);
   $(iconClass).show();
+  tools.unbindKeys();
 }
 
 function saveEnrollments() {
