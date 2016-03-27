@@ -9,7 +9,8 @@ var events = {
   settingsLoaded: jQuery.Event("settings-loaded")
 };
 var account = {};
-var currentDate = new Date().getSettingsDate(); //fixed rigth now
+var rawCurrentDate = new Date();
+var currentDate = rawCurrentDate.getSettingsDate(); //fixed rigth now
 var settingsFile = __dirname+"/settings/account.json";
 
 $.getJSON(settingsFile).then(function(data) {
@@ -48,6 +49,7 @@ module.exports = {
   viewEvents: require("./view/events.js"),
   getAccount: getAccount,
   getCurrentEnrollments: getCurrentEnrollments,
+  getCurrentDate: getCurrentDate,
   setCurrentDate: setCurrentDate,
   saveCurrentEnrollments: saveCurrentEnrollments,
   saveAccount: saveAccount
@@ -74,8 +76,13 @@ function getCurrentEnrollments() {
   return enrollments;
 };
 
+function getCurrentDate() {
+  return rawCurrentDate;
+}
+
 function setCurrentDate(date) {
-  currentDate = date;
+  rawCurrentDate = date;
+  currentDate = rawCurrentDate.getSettingsDate();
 }
 
 function saveCurrentEnrollments(enrollments) {

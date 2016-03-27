@@ -14,7 +14,7 @@ var valueSortClass = "values";
 var lowestFirstClass = "lowest-first";
 var highestFirstClass = "highest-first";
 
-$(document).on(viewEvents.enrollmentsDrawed , function() {
+$(document).on(viewEvents.enrollmentsDrawed.type, function() {
   $(outcomesSortClass).click(function() {
     $(outcomesSortClass).removeClass(checkedClass);
     applySort($(this), outcomesId);

@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>BudgetApp</title>
 
-    <link rel="stylesheet" href="utils/mdl/material-icons.css">
-    <link rel="stylesheet" href="utils/mdl/material.blue-indigo.min.css">
-    <link rel="stylesheet" href="utils/mdl-template-dashboard/styles.css">
+    <link rel="stylesheet" href="utils/templates/mdl/material-icons.css">
+    <link rel="stylesheet" href="utils/templates/mdl/material.blue-indigo.min.css">
+    <link rel="stylesheet" href="utils/templates/mdl-template-dashboard/styles.css">
     <link rel="stylesheet" href="utils/budget.css">
 
     <script src="core/main.js"></script>
-    <script src="utils/mdl/material.min.js"></script>
+    <script src="utils/templates/mdl/material.min.js"></script>
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -21,8 +21,16 @@
       <!-- HEADER -->
       <header class="demo-header mdl-layout__header">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">BudgetApp</span>
+
+          <!-- DATE -->
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="date-filter">
+            <i class="material-icons">filter_list</i>
+          </button>
+          <span id="date" class="mdl-layout-title">BudgetApp</span>
+
           <div class="mdl-layout-spacer"></div>
+
+          <!-- BASE BUTTONS -->
           <div class="button-group base">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="edit">
               <i class="material-icons">edit</i>
@@ -31,6 +39,8 @@
               <i class="material-icons">delete</i>
             </button>
           </div>
+
+          <!-- EDIT BUTTONS -->
           <div class="button-group edit">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="edit-ok">
               <i class="material-icons">done</i>
@@ -39,6 +49,8 @@
               <i class="material-icons">close</i>
             </button>
           </div>
+
+          <!-- DELETE BUTTONS -->
           <div class="button-group delete">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="delete-ok">
               <i class="material-icons">done</i>
@@ -47,6 +59,8 @@
               <i class="material-icons">close</i>
             </button>
           </div>
+
+          <!-- MORE -->
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
           </button>
@@ -58,11 +72,14 @@
         </div>
 
         <div class="mdl-layout__header-row">
+          <!-- ADD FAB -->
           <button id="addEntityFab"
             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
             <i class="material-icons">add</i>
           </button>
           <div class="mdl-layout-spacer"></div>
+
+          <!-- TOTAL SUM -->
           <span class="grand-total mdl-layout-title">
             <i class="material-icons">account_balance</i>
             <span id="general-sum"></span>
@@ -89,6 +106,7 @@
             </ul>
           </div>
         </header>
+
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">home</i>Budżet</a>
           <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">flag</i>Aktualizacje</a>
@@ -219,6 +237,76 @@
             </div>
             <div class="mdl-dialog__actions">
               <button type="button" class="mdl-button close">Ok</button>
+            </div>
+          </dialog>
+
+          <dialog id="dateDialog" class="date-dialog mdl-dialog">
+            <h4 class="mdl-dialog__title">Wybierz datę</h4>
+            <div class="mdl-dialog__content">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="^\d{4}$" id="filter-year">
+                <span class="mdl-textfield__error">Przykład: 2016</span>
+              </div>
+              <div class="month-row">
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-1">
+                  <input type="radio" id="month-1" class="mdl-radio__button" name="filter-month" value=1 >
+                  <span class="mdl-radio__label">styczeń</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-2">
+                  <input type="radio" id="month-2" class="mdl-radio__button" name="filter-month" value=2 >
+                  <span class="mdl-radio__label">luty</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-3">
+                  <input type="radio" id="month-3" class="mdl-radio__button" name="filter-month" value=3 >
+                  <span class="mdl-radio__label">marzec</span>
+                </label>
+              </div>
+              <div class="month-row">
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-4">
+                  <input type="radio" id="month-4" class="mdl-radio__button" name="filter-month" value=4 >
+                  <span class="mdl-radio__label">kwiecień</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-5">
+                  <input type="radio" id="month-5" class="mdl-radio__button" name="filter-month" value=5 >
+                  <span class="mdl-radio__label">maj</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-6">
+                  <input type="radio" id="month-6" class="mdl-radio__button" name="filter-month" value=6 >
+                  <span class="mdl-radio__label">czerwiec</span>
+                </label>
+              </div>
+              <div class="month-row">
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-7">
+                  <input type="radio" id="month-7" class="mdl-radio__button" name="filter-month" value=7 >
+                  <span class="mdl-radio__label">lipiec</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-8">
+                  <input type="radio" id="month-8" class="mdl-radio__button" name="filter-month" value=8 >
+                  <span class="mdl-radio__label">sierpień</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-9">
+                  <input type="radio" id="month-9" class="mdl-radio__button" name="filter-month" value=9 >
+                  <span class="mdl-radio__label">wrzesień</span>
+                </label>
+              </div>
+              <div class="month-row">
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-10">
+                  <input type="radio" id="month-10" class="mdl-radio__button" name="filter-month" value=10 >
+                  <span class="mdl-radio__label">październik</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-11">
+                  <input type="radio" id="month-11" class="mdl-radio__button" name="filter-month" value=11 >
+                  <span class="mdl-radio__label">listopad</span>
+                </label>
+                <label class="month mdl-radio mdl-js-radio mdl-js-ripple-effect" for="month-12">
+                  <input type="radio" id="month-12" class="mdl-radio__button" name="filter-month" value=12 >
+                  <span class="mdl-radio__label">grudzień</span>
+                </label>
+              </div>
+            </div>
+            <div class="mdl-dialog__actions">
+              <button id="changeDate" type="button" class="mdl-button mdl-js-button mdl-button--accent close">Zmień</button>
+              <button type="button" class="mdl-button close">Anuluj</button>
             </div>
           </dialog>
 

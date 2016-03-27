@@ -4,8 +4,8 @@ global.appRequire = function(name) {
     return require(appRootDir + '/' + name);
 }
 
-appRequire("utils/jquery.js");
-appRequire("utils/menu.js");
+appRequire("utils/scripts/jquery.js");
+appRequire("utils/scripts/menu.js");
 var settings = appRequire("settings.js");
 var enrollments = appRequire("core/enrollment.js");
 var view = appRequire("view/main.js");

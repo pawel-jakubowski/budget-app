@@ -1,4 +1,5 @@
 var remote = require('remote');
+var dialog = appRequire("utils/scripts/dialog.js")
 
 var menuAbout = "#hdrbtn-info";
 var menuDebug = "#hdrbtn-debug";
@@ -22,23 +23,13 @@ $.getJSON(appRootDir + '/' + appInfoFile).then(function(data) {
 });
 
 $(document).ready(function() {
-  bindDialog(aboutDialog, menuAbout);
-  bindDialog(toolsDialog, menuAboutTools);
+  dialog.bindDialog(aboutDialog, menuAbout);
+  dialog.bindDialog(toolsDialog, menuAboutTools);
 
   $(menuDebug).click(function() {
       remote.getCurrentWindow().toggleDevTools();
   });
 });
-
-function bindDialog(dialogSelector, dialogButton) {
-  var dialog = document.querySelector(dialogSelector);
-  $(dialogButton).click(function() {
-    dialog.showModal();
-  });
-  dialog.querySelector('.close').addEventListener('click', function() {
-    dialog.close();
-  });
-}
 
 function fillAboutDialog() {
   var content =

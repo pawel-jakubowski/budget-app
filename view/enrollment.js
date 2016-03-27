@@ -5,6 +5,7 @@ var deleter = require("./enrollment/delete.js");
 var pinner = require("./enrollment/pin.js");
 var editor = require("./enrollment/edit.js");
 var sorter = require("./enrollment/sort.js");
+var dater = require("./enrollment/date.js");
 
 module.exports = {
   init: init,
