@@ -6,13 +6,16 @@ var path = require('path');
 var user = 'pawel-jakubowski';
 var repo = 'budget-app';
 var progress = 0;
-var updateDir = "update_files";
 
 var appInfoFile = "package.json";
 var appVersion = "";
 var appWaitForInfo = false;
 
-$.getJSON(appRootDir + '/' + appInfoFile).then(function(data) {
+var appContentDir = /*process.platform != 'darwin') ? "resources/app/" : */
+  appRootDir;
+var updateDir = appContentDir + "/update_files";
+
+$.getJSON(appContentDir + "/" + appInfoFile).then(function(data) {
   console.log("BudgetApp version: " + data.version);
   coreEvents.appInfoReady.info = data;
   $(document).trigger(coreEvents.appInfoReady);
@@ -121,10 +124,7 @@ function createDirectories(dirs) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
       }
     }
-    if (process.platform != 'darwin')
-      mkdirpSync("resources/app/" + updateDir + "/" +file.path);
-    else
-      mkdirpSync(appRootDir + "/" + updateDir + "/" + file.path);
+    mkdirpSync(updateDir + "/" + file.path);
   });
 }
 
@@ -135,19 +135,36 @@ function downloadFiles(files) {
   console.log(files);
   $.each(filesSended, function(index, fileSended) { filesSended[index] = false; });
   $.each(files, function(index, file) {
-    var filePath = appRootDir + "/" + updateDir + "/" + file.path;
+    var filePath = updateDir + "/" + file.path;
     var newFile = fs.createWriteStream(filePath);
-    var request = https.get(new fileOptions(user, repo, file.path), function(response) {
-      response.pipe(newFile);
-      response.on("end", function() {
-        filesSended[index] = true;
-        var filesNotSendedYet = $.map(filesSended, function(val,key){ if(!val) return val;});
-        var completedInPercent = 100 - parseInt((filesNotSendedYet.length * 100) / filesCount);
-        viewEvents.appUpdateProgress.value = completedInPercent;
-        $(document).trigger(viewEvents.appUpdateProgress);
-        if (filesNotSendedYet.length == 0)
-          $(document).trigger(coreEvents.appUpdateCompleted);
+    fs.exists(updateDir, function(exists){
+      if(!exists) {
+        console.log("ERR: Update directory does not exists!");
+        return;
+      }
+    });
+    newFile.on('open', function(fd) {
+      var request = https.get(new fileOptions(user, repo, file.path), function(response) {
+        response.pipe(newFile);
+        response.on("end", function() {
+          filesSended[index] = true;
+          var filesNotSendedYet = $.map(filesSended, function(val,key){ if(!val) return val;});
+          var completedInPercent = 100 - parseInt((filesNotSendedYet.length * 100) / filesCount);
+          viewEvents.appUpdateProgress.value = completedInPercent;
+          $(document).trigger(viewEvents.appUpdateProgress);
+          if (filesNotSendedYet.length == 0)
+            finishUpdate();
+        });
       });
     });
   });
+}
+
+function finishUpdate() {
+  moveDownloadedFiles();
+  $(document).trigger(coreEvents.appUpdateCompleted);
+}
+
+function moveDownloadedFiles() {
+  fs.rename(updateDir, appContentDir);
 }

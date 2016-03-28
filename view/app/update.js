@@ -9,6 +9,7 @@ var updateProgressBarId = "#" + updateProgressBarIdName;
 var updateBadgeId = "#update-flag";
 var checkUpdateButton = "#check-update";
 var updateAppButton = "#update-app";
+var restartButton = ".restart-app";
 var checkUpdateSpin = "#check-update-spin";
 var versionInfoId = "#update-vesion-info";
 
@@ -24,6 +25,11 @@ $(document).ready(function() {
     $(checkUpdateSpin).addClass("is-active");
     $(updateAppButton).attr("disabled", true);
     $(document).trigger(coreEvents.appUpdateStart);
+  });
+
+  $(restartButton).click(function(){
+    console.log("restart app");
+    restart.restart();
   });
 
   $(document).on(viewEvents.appUpdateProgress.type, function(e) {
@@ -68,13 +74,10 @@ $(document).on(coreEvents.appUpdateCompleted.type, function() {
 
 function removeProgressBar() {
   $(updateProgressBarId).addClass("hidden");
+  $(checkUpdateSpin).removeClass("is-active");
 }
 
 function notifyAboutUpdate() {
-
+  $(updateAppButton).addClass("hidden");
+  $(restartButton).removeClass("hidden");
 }
-
-
-$(document).on('click', '.reload-page-btn', function(){
-  restart.restart();
-});
