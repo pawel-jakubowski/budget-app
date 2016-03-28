@@ -1,6 +1,7 @@
 var settings = appRequire("settings.js");
 var dialog = appRequire("utils/scripts/dialog.js");
 var moment = appRequire("utils/modules/moment-with-locales.js");
+var coreEvents = appRequire("core/events.js");
 var drawer = require("./draw.js");
 var tools = require("./tools.js");
 moment.locale('pl');
@@ -42,6 +43,8 @@ function filterByDate(month, year) {
   settings.setCurrentDate(newDate);
   var monthEnrollments = settings.getCurrentEnrollments();
   drawer.printFromData(monthEnrollments);
+  $(document).trigger(coreEvents.updateIncomesSum);
+  $(document).trigger(coreEvents.updateOutcomesSum);
 }
 
 function getYear() {
