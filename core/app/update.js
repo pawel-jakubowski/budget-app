@@ -11,7 +11,7 @@ var appInfoFile = "package.json";
 var appInfo = {};
 var appWaitForInfo = false;
 
-var appContentDir = process.platform === 'windows' ? "resources/app/" : appRootDir;
+var appContentDir = appRootDir;
 var relativeUpdateDir = "";
 var updateDir = appContentDir;
 
@@ -119,7 +119,7 @@ function createDirectories(dirs) {
   $.each(dirs, function(key, file) {
     var mkdirSync = function (path) {
       try {
-        fs.mkdirSync(path);
+        fs.mkdirSync(appContentDir + "/" + path);
       } catch(e) {
         if ( e.code != 'EEXIST' ) throw e;
       }
