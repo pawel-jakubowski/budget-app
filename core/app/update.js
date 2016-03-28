@@ -11,9 +11,10 @@ var appInfoFile = "package.json";
 var appVersion = "";
 var appWaitForInfo = false;
 
-var appContentDir = /*process.platform != 'darwin') ? "resources/app/" : */
+var appContentDir = process.platform != 'darwin') ? "resources/app/" : 
   appRootDir;
-var updateDir = appContentDir + "/update_files";
+var relativeUpdateDir = "";
+var updateDir = appContentDir;
 
 $.getJSON(appContentDir + "/" + appInfoFile).then(function(data) {
   console.log("BudgetApp version: " + data.version);
@@ -124,7 +125,7 @@ function createDirectories(dirs) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
       }
     }
-    mkdirpSync(updateDir + "/" + file.path);
+    mkdirpSync(relativeUpdateDir + "/" + file.path);
   });
 }
 
@@ -161,10 +162,5 @@ function downloadFiles(files) {
 }
 
 function finishUpdate() {
-  moveDownloadedFiles();
   $(document).trigger(coreEvents.appUpdateCompleted);
-}
-
-function moveDownloadedFiles() {
-  fs.rename(updateDir, appContentDir);
 }
