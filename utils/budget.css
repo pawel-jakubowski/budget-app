@@ -72,3 +72,9 @@
 #date-filter { margin-right: 20px; }
 .month-row { padding: 10px 0px; }
 .month { min-width: 110px; }
+
+/* Check update */
+#check-update-spin { margin:0px 10px; }
+
+/* Progress bar */
+#update-progress-bar { width: 100%; }

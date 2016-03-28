@@ -1,4 +1,4 @@
-require("./app/update.js");
+require("./app.js");
 var account = require("./account.js");
 
 module.exports = {

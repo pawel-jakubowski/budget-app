@@ -8,10 +8,34 @@ var repo = 'budget-app';
 var progress = 0;
 
 var appInfoFile = "package.json";
+var appVersion = "";
+var appWaitForInfo = false;
+
 $.getJSON(appRootDir + '/' + appInfoFile).then(function(data) {
   console.log("BudgetApp version: " + data.version);
   coreEvents.appInfoReady.info = data;
   $(document).trigger(coreEvents.appInfoReady);
+});
+
+$(document).on(coreEvents.appInfoReady.type, function(e) {
+  appVersion = e.info.version;
+  if (appWaitForInfo)
+    $(document).trigger(coreEvents.appCheckUpdate);
+});
+
+$(document).on(coreEvents.appCheckUpdate.type, function() {
+  var request = https.get(new fileOptions(user, repo, appInfoFile), function(response) {
+    var output = "";
+    response.on("data", function(chunk){
+      output += chunk.toString('utf8');
+    }).on("end", function(){
+      output = JSON.parse(output);
+      coreEvents.appUpdateInfo.newVersion = output.version;
+      coreEvents.appUpdateInfo.currentVersion = appVersion;
+      coreEvents.appUpdateInfo.updateNeeded = isGreaterVersion(appVersion, output.version);
+      $(document).trigger(coreEvents.appUpdateInfo);
+    });
+  });
 });
 
 module.exports = {
@@ -19,21 +43,10 @@ module.exports = {
 };
 
 function updateApplication() {
-  $(document).on(coreEvents.appInfoReady.type, function(e) {
-    var request = https.get(new fileOptions(user, repo, appInfoFile), function(response) {
-      var output = "";
-      response.on("data", function(chunk){
-        output += chunk.toString('utf8');
-      }).on("end", function(){
-        output = JSON.parse(output);
-        if (isGreaterVersion(e.info.version,output.version)) {
-          coreEvents.appUpdateAvailable.newVersion = output.version;
-          coreEvents.appUpdateAvailable.currentVersion = e.info.version;
-          $(document).trigger(coreEvents.appUpdateAvailable);
-        }
-      });
-    });
-  });
+  if (appVersion === "")
+    appWaitForInfo = true;
+  else
+    $(document).trigger(coreEvents.appCheckUpdate);
 }
 
 function isGreaterVersion(oldVersion, newVersion) {

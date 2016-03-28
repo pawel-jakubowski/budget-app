@@ -1,5 +1,6 @@
 var remote = require('remote');
-var dialog = appRequire("utils/scripts/dialog.js")
+var dialog = appRequire("utils/scripts/dialog.js");
+var tools = require("./tools.js");
 
 var menuAbout = "#hdrbtn-info";
 var menuDebug = "#hdrbtn-debug";
@@ -33,37 +34,16 @@ $(document).ready(function() {
 
 function fillAboutDialog() {
   var content =
-    getMdlListItemTwoLine(appInfo.name, "Nazwa") +
-    getMdlListItemTwoLine(appInfo.version, "Wersja") +
-    getMdlListItemTwoLine(appInfo.author, "Autor");
+    tools.getMdlListItemTwoLine(appInfo.name, "Nazwa") +
+    tools.getMdlListItemTwoLine(appInfo.version, "Wersja") +
+    tools.getMdlListItemTwoLine(appInfo.author, "Autor");
   $(aboutDialogContent).html(content);
 }
 
 function fillToolsDialog() {
   var content = "";
   $.each(appInfo.contributions, function(index, tool) {
-    content += getMdlListItem(tool.name);
+    content += tools.getMdlListItem(tool.name);
   });
   $(toolsDialogContent).html(content);
-}
-
-function getMdlListItem(title) {
-  var item =
-    '<li class="mdl-list__item">' +
-      '<span class="mdl-list__item-primary-content">' +
-        '<span>'+ title + '</span>' +
-      '</span>' +
-    '</li>';
-  return item;
-}
-
-function getMdlListItemTwoLine(title, subtitle) {
-  var item =
-    '<li class="mdl-list__item mdl-list__item--two-line">' +
-      '<span class="mdl-list__item-primary-content">' +
-        '<span>'+ title + '</span>' +
-        '<span class="mdl-list__item-sub-title">' + subtitle + '</span>' +
-      '</span>' +
-    '</li>';
-  return item;
 }

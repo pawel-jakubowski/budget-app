@@ -23,15 +23,16 @@
         <div class="mdl-layout__header-row">
 
           <!-- DATE -->
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="date-filter">
+          <button class="budget-content change-content mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="date-filter">
             <i class="material-icons">filter_list</i>
           </button>
-          <span id="date" class="mdl-layout-title">BudgetApp</span>
+          <span id="date" class="budget-content change-content mdl-layout-title">BudgetApp</span>
+          <span class="update-content change-content mdl-layout-title">Aktualizacje</span>
 
           <div class="mdl-layout-spacer"></div>
 
           <!-- BASE BUTTONS -->
-          <div class="button-group base">
+          <div class="budget-content change-content button-group base">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="edit">
               <i class="material-icons">edit</i>
             </button>
@@ -41,7 +42,7 @@
           </div>
 
           <!-- EDIT BUTTONS -->
-          <div class="button-group edit">
+          <div class="budget-content change-content content-default-hidden button-group edit">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="edit-ok">
               <i class="material-icons">done</i>
             </button>
@@ -51,7 +52,7 @@
           </div>
 
           <!-- DELETE BUTTONS -->
-          <div class="button-group delete">
+          <div class="budget-content change-content content-default-hidden button-group delete">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="delete-ok">
               <i class="material-icons">done</i>
             </button>
@@ -71,7 +72,7 @@
           </ul>
         </div>
 
-        <div class="mdl-layout__header-row">
+        <div class="budget-content change-content mdl-layout__header-row">
           <!-- ADD FAB -->
           <button id="addEntityFab"
             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
@@ -108,8 +109,12 @@
         </header>
 
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">home</i>Budżet</a>
-          <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">flag</i>Aktualizacje</a>
+          <a id="budget-link" class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">home</i>Budżet</a>
+          <a id="update-link" class="mdl-navigation__link" href="#">
+            <span id="update-flag" class="material-icons mdl-badge mdl-badge--overlap">flag</span>
+            <!-- <span id="update-spin" class="material-icons mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></span> -->
+            Aktualizacje
+          </a>
           <div class="mdl-layout-spacer"></div>
           <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Pomoc</span></a>
         </nav>
@@ -117,10 +122,11 @@
 
       <!-- CONTENT -->
       <main class="mdl-layout__content mdl-color--grey-100">
-        <div id="account" class="mdl-grid demo-content">
+        <div id="update-progress-bar" class="mdl-progress mdl-js-progress mdl-color--primary hidden"></div>
+        <div class="mdl-grid demo-content">
 
           <!-- CARDS -->
-          <div class="budget-card mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
+          <div class="budget-content change-content mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Wydatki</h2>
@@ -155,7 +161,7 @@
             </div>
           </div>
 
-          <div class="budget-card mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
+          <div class="budget-content change-content mdl-cell mdl-cell--6-col mdl-grid mdl-grid--no-spacing">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Przychody</h2>
@@ -188,6 +194,21 @@
                 </ul>
               </div>
             </div>
+          </div>
+
+          <div class="update-content change-content mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+              <button id="check-update" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Sprawdź aktualizacje
+              </button>
+              <button id="update-app" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect hidden">
+                Aktualizuj
+              </button>
+              <span id="check-update-spin" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner"></span>
+            </div>
+            <ul id="update-vesion-info">
+
+            </ul>
           </div>
 
           <!-- DIALOGS -->
