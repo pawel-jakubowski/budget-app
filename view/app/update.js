@@ -29,9 +29,7 @@ $(document).ready(function() {
   $(document).on(viewEvents.appUpdateProgress.type, function(e) {
     console.log("Update: " + e.value);
     var newValue = e.value <= 100 ? e.value : 100;
-    document.querySelector(updateProgressBarId).addEventListener('mdl-componentupgraded', function() {
-      this.MaterialProgress.setProgress(newValue);
-    });
+    document.querySelector(updateProgressBarId).MaterialProgress.setProgress(newValue);
   });
 });
 

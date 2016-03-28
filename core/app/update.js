@@ -6,6 +6,7 @@ var path = require('path');
 var user = 'pawel-jakubowski';
 var repo = 'budget-app';
 var progress = 0;
+var updateDir = "update_files";
 
 var appInfoFile = "package.json";
 var appVersion = "";
@@ -121,9 +122,9 @@ function createDirectories(dirs) {
       }
     }
     if (process.platform != 'darwin')
-      mkdirpSync("resources/app/" + file.path);
+      mkdirpSync("resources/app/" + updateDir + "/" +file.path);
     else
-      mkdirpSync(appRootDir + "/" + file.path);
+      mkdirpSync(appRootDir + "/" + updateDir + "/" + file.path);
   });
 }
 
@@ -134,7 +135,7 @@ function downloadFiles(files) {
   console.log(files);
   $.each(filesSended, function(index, fileSended) { filesSended[index] = false; });
   $.each(files, function(index, file) {
-    var filePath = appRootDir + "/" + file.path;
+    var filePath = appRootDir + "/" + updateDir + "/" + file.path;
     var newFile = fs.createWriteStream(filePath);
     var request = https.get(new fileOptions(user, repo, file.path), function(response) {
       response.pipe(newFile);
