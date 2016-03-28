@@ -11,13 +11,13 @@ var appInfoFile = "package.json";
 var appVersion = "";
 var appWaitForInfo = false;
 
-var appContentDir = process.platform === 'windows' ? "resources/app/" : appRootDir;
+var appContentDir = appRootDir;
 var relativeUpdateDir = "";
 var updateDir = appContentDir;
 
 $.getJSON(appContentDir + "/" + appInfoFile).then(function(data) {
   console.log("BudgetApp version: " + data.version);
-  coreEvents.appInfoReady.info = data;
+  appInfo = data;
   $(document).trigger(coreEvents.appInfoReady);
 });
 
@@ -98,14 +98,14 @@ $(document).on(coreEvents.appUpdateStart.type, function() {
 
 function treeOptions(user, repo) {
   this.host = 'api.github.com';
-  this.path = '/repos/' + user + '/' + repo + '/git/trees/HEAD?recursive=1';
+  this.path = '/repos/' + user + '/' + repo + '/git/trees/' + appInfo.repository.sha +'?recursive=1';
   this.method = 'GET';
   this.headers = {'user-agent': 'node.js'};
 };
 
 function fileOptions(user, repo, filePath) {
   this.host = 'raw.githubusercontent.com';
-  this.path = '/' + user + '/' + repo + '/master/' + filePath;
+  this.path = '/' + user + '/' + repo + '/' + appInfo.repository.branch + '/' + filePath;
   this.method = 'GET';
   this.headers = {'user-agent': 'node.js'};
 };
@@ -130,13 +130,14 @@ function createDirectories(dirs) {
   $.each(dirs, function(key, file) {
     var mkdirSync = function (path) {
       try {
-        fs.mkdirSync(path);
+        var dirpath = appContentDir + "/" + path
+        console.log("create directory: " + dirpath);
+        fs.mkdirSync(dirpath);
       } catch(e) {
         if ( e.code != 'EEXIST' ) throw e;
       }
     }
     var mkdirpSync = function (dirpath) {
-      console.log("create directory: " + dirpath);
       var parts = dirpath.split(path.sep);
       for( var i = 1; i <= parts.length; i++ ) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
