@@ -3,12 +3,10 @@ var viewEvents = appRequire('view/events.js');
 var https = require('https');
 var fs = require('fs');
 var path = require('path');
-var user = 'pawel-jakubowski';
-var repo = 'budget-app';
 var progress = 0;
 
 var appInfoFile = "package.json";
-var appVersion = "";
+var appInfo = {};
 var appWaitForInfo = false;
 
 var appContentDir = appRootDir;
@@ -18,16 +16,18 @@ var updateDir = appContentDir;
 $.getJSON(appContentDir + "/" + appInfoFile).then(function(data) {
   console.log("BudgetApp version: " + data.version);
   appInfo = data;
+  coreEvents.appInfoReady.info = data;
   $(document).trigger(coreEvents.appInfoReady);
 });
 
 $(document).on(coreEvents.appInfoReady.type, function(e) {
-  appVersion = e.info.version;
   if (appWaitForInfo)
     $(document).trigger(coreEvents.appCheckUpdate);
 });
 
 $(document).on(coreEvents.appCheckUpdate.type, function() {
+  var user = appInfo.repository.author;
+  var repo = appInfo.repository.name;
   var request = https.get(new fileOptions(user, repo, appInfoFile), function(response) {
     var output = "";
     response.on("data", function(chunk){
@@ -35,8 +35,8 @@ $(document).on(coreEvents.appCheckUpdate.type, function() {
     }).on("end", function(){
       output = JSON.parse(output);
       coreEvents.appUpdateInfo.newVersion = output.version;
-      coreEvents.appUpdateInfo.currentVersion = appVersion;
-      coreEvents.appUpdateInfo.updateNeeded = isGreaterVersion(appVersion, output.version);
+      coreEvents.appUpdateInfo.currentVersion = appInfo.version;
+      coreEvents.appUpdateInfo.updateNeeded = isGreaterVersion(appInfo.version, output.version);
       console.log("update needed? " + coreEvents.appUpdateInfo.updateNeeded);
       $(document).trigger(coreEvents.appUpdateInfo);
     });
@@ -48,7 +48,7 @@ module.exports = {
 };
 
 function updateApplication() {
-  if (appVersion === "")
+  if (!appInfo.hasOwnProperty("version"))
     appWaitForInfo = true;
   else
     $(document).trigger(coreEvents.appCheckUpdate);
@@ -82,6 +82,8 @@ function isGreaterVersion(oldVersion, newVersion) {
 
 $(document).on(coreEvents.appUpdateStart.type, function() {
   console.log("Start updating...");
+  var user = appInfo.repository.author;
+  var repo = appInfo.repository.name;
   var request = https.get(new treeOptions(user, repo), function(response) {
     var output = "";
     response.on("data", function(chunk){
@@ -163,6 +165,8 @@ function downloadFiles(files) {
       }
     });
     newFile.on('open', function(fd) {
+      var user = appInfo.repository.author;
+      var repo = appInfo.repository.name;
       var request = https.get(new fileOptions(user, repo, file.path), function(response) {
         response.pipe(newFile);
         response.on("end", function() {
