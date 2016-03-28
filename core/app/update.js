@@ -37,6 +37,7 @@ $(document).on(coreEvents.appCheckUpdate.type, function() {
       coreEvents.appUpdateInfo.newVersion = output.version;
       coreEvents.appUpdateInfo.currentVersion = appVersion;
       coreEvents.appUpdateInfo.updateNeeded = isGreaterVersion(appVersion, output.version);
+      console.log("update needed? " + coreEvents.appUpdateInfo.updateNeeded);
       $(document).trigger(coreEvents.appUpdateInfo);
     });
   });
@@ -57,9 +58,26 @@ function isGreaterVersion(oldVersion, newVersion) {
   console.log("compare " + oldVersion + " with " + newVersion);
   var oldVersion = oldVersion.split('.');
   var newVersion = newVersion.split('.');
-  return parseInt(newVersion[0]) > parseInt(oldVersion[0]) ||
-    parseInt(newVersion[1]) > parseInt(oldVersion[1]) ||
-    parseInt(newVersion[2]) > parseInt(oldVersion[2]);
+  var oldVersionInt = [parseInt(oldVersion[0]), parseInt(oldVersion[1]), parseInt(oldVersion[2])];
+  var newVersionInt = [parseInt(newVersion[0]), parseInt(newVersion[1]), parseInt(newVersion[2])];
+  var majorIsGreater = newVersionInt[0] > oldVersionInt[0];
+  var majorIsEqual = newVersionInt[0] === oldVersionInt[0];
+  var minorIsGreater = newVersionInt[1] > oldVersionInt[1];
+  var minorIsEqual = newVersionInt[1] === oldVersionInt[1];
+  var patchIsGreater = newVersionInt[2] > oldVersionInt[2];
+
+  if (majorIsGreater) {
+    return true;
+  }
+  else if (majorIsEqual) {
+    if (minorIsGreater) {
+      return true;
+    }
+    else if (minorIsEqual) {
+      return patchIsGreater;
+    }
+  }
+  return false; // fallback
 }
 
 $(document).on(coreEvents.appUpdateStart.type, function() {
