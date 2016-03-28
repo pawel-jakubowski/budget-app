@@ -11,8 +11,7 @@ var appInfoFile = "package.json";
 var appVersion = "";
 var appWaitForInfo = false;
 
-var appContentDir = process.platform != 'darwin') ? "resources/app/" : 
-  appRootDir;
+var appContentDir = process.platform === 'windows' ? "resources/app/" : appRootDir;
 var relativeUpdateDir = "";
 var updateDir = appContentDir;
 
