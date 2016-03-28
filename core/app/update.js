@@ -8,9 +8,16 @@ var repo = 'budget-app';
 var progress = 0;
 
 var appInfoFile = "package.json";
-$.getJSON(appRootDir + '/' + appInfoFile).then(function(data) {
+var appInfo = {};
+var appWaitForInfo = false;
+
+var appContentDir = process.platform === 'windows' ? "resources/app/" : appRootDir;
+var relativeUpdateDir = "";
+var updateDir = appContentDir;
+
+$.getJSON(appContentDir + '/' + appInfoFile).then(function(data) {
   console.log("BudgetApp version: " + data.version);
-  coreEvents.appInfoReady.info = data;
+  appInfo = data;
   $(document).trigger(coreEvents.appInfoReady);
 });
 
@@ -19,16 +26,16 @@ module.exports = {
 };
 
 function updateApplication() {
-  $(document).on(coreEvents.appInfoReady.type, function(e) {
+  $(document).on(coreEvents.appInfoReady.type, function() {
     var request = https.get(new fileOptions(user, repo, appInfoFile), function(response) {
       var output = "";
       response.on("data", function(chunk){
         output += chunk.toString('utf8');
       }).on("end", function(){
         output = JSON.parse(output);
-        if (isGreaterVersion(e.info.version,output.version)) {
+        if (isGreaterVersion(appInfo.version,output.version)) {
           coreEvents.appUpdateAvailable.newVersion = output.version;
-          coreEvents.appUpdateAvailable.currentVersion = e.info.version;
+          coreEvents.appUpdateAvailable.currentVersion = appInfo.version;
           $(document).trigger(coreEvents.appUpdateAvailable);
         }
       });
@@ -40,9 +47,26 @@ function isGreaterVersion(oldVersion, newVersion) {
   console.log("compare " + oldVersion + " with " + newVersion);
   var oldVersion = oldVersion.split('.');
   var newVersion = newVersion.split('.');
-  return parseInt(newVersion[0]) > parseInt(oldVersion[0]) ||
-    parseInt(newVersion[1]) > parseInt(oldVersion[1]) ||
-    parseInt(newVersion[2]) > parseInt(oldVersion[2]);
+  var oldVersionInt = [parseInt(oldVersion[0]), parseInt(oldVersion[1]), parseInt(oldVersion[2])];
+  var newVersionInt = [parseInt(newVersion[0]), parseInt(newVersion[1]), parseInt(newVersion[2])];
+  var majorIsGreater = newVersionInt[0] > oldVersionInt[0];
+  var majorIsEqual = newVersionInt[0] === oldVersionInt[0];
+  var minorIsGreater = newVersionInt[1] > oldVersionInt[1];
+  var minorIsEqual = newVersionInt[1] === oldVersionInt[1];
+  var patchIsGreater = newVersionInt[2] > oldVersionInt[2];
+
+  if (majorIsGreater) {
+    return true;
+  }
+  else if (majorIsEqual) {
+    if (minorIsGreater) {
+      return true;
+    }
+    else if (minorIsEqual) {
+      return patchIsGreater;
+    }
+  }
+  return false; // fallback
 }
 
 $(document).on(coreEvents.appUpdateStart.type, function() {
@@ -63,14 +87,14 @@ $(document).on(coreEvents.appUpdateStart.type, function() {
 
 function treeOptions(user, repo) {
   this.host = 'api.github.com';
-  this.path = '/repos/' + user + '/' + repo + '/git/trees/HEAD?recursive=1';
+  this.path = '/repos/' + user + '/' + repo + '/git/trees/' + appInfo.repository.sha +'?recursive=1';
   this.method = 'GET';
   this.headers = {'user-agent': 'node.js'};
 };
 
 function fileOptions(user, repo, filePath) {
   this.host = 'raw.githubusercontent.com';
-  this.path = '/' + user + '/' + repo + '/master/' + filePath;
+  this.path = '/' + user + '/' + repo + '/' + appInfo.repository.branch + '/' + filePath;
   this.method = 'GET';
   this.headers = {'user-agent': 'node.js'};
 };
@@ -107,10 +131,7 @@ function createDirectories(dirs) {
         mkdirSync( path.join.apply(null, parts.slice(0, i)) );
       }
     }
-    if (process.platform != 'darwin')
-      mkdirpSync("resources/app/" + file.path);
-    else
-      mkdirpSync(appRootDir + "/" + file.path);
+    mkdirpSync(relativeUpdateDir + "/" + file.path);
   });
 }
 
@@ -121,19 +142,31 @@ function downloadFiles(files) {
   console.log(files);
   $.each(filesSended, function(index, fileSended) { filesSended[index] = false; });
   $.each(files, function(index, file) {
-    var filePath = appRootDir + "/" + file.path;
+    var filePath = updateDir + "/" + file.path;
     var newFile = fs.createWriteStream(filePath);
-    var request = https.get(new fileOptions(user, repo, file.path), function(response) {
-      response.pipe(newFile);
-      response.on("end", function() {
-        filesSended[index] = true;
-        var filesNotSendedYet = $.map(filesSended, function(val,key){ if(!val) return val;});
-        var completedInPercent = 100 - parseInt((filesNotSendedYet.length * 100) / filesCount);
-        viewEvents.appUpdateProgress.value = completedInPercent;
-        $(document).trigger(viewEvents.appUpdateProgress);
-        if (filesNotSendedYet.length == 0)
-          $(document).trigger(coreEvents.appUpdateCompleted);
+    fs.exists(updateDir, function(exists){
+      if(!exists) {
+        console.log("ERR: Update directory does not exists!");
+        return;
+      }
+    });
+    newFile.on('open', function(fd) {
+      var request = https.get(new fileOptions(user, repo, file.path), function(response) {
+        response.pipe(newFile);
+        response.on("end", function() {
+          filesSended[index] = true;
+          var filesNotSendedYet = $.map(filesSended, function(val,key){ if(!val) return val;});
+          var completedInPercent = 100 - parseInt((filesNotSendedYet.length * 100) / filesCount);
+          viewEvents.appUpdateProgress.value = completedInPercent;
+          $(document).trigger(viewEvents.appUpdateProgress);
+          if (filesNotSendedYet.length == 0)
+            finishUpdate();
+        });
       });
     });
   });
+}
+
+function finishUpdate() {
+  $(document).trigger(coreEvents.appUpdateCompleted);
 }
